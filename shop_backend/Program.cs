@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using shop_backend.Data;
 
 namespace shop_backend
 {
@@ -9,6 +11,10 @@ namespace shop_backend
 
             // Add services to the container.
 
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                options.UseNpgsql(builder.Configuration.GetConnectionString("DbConnString"));
+            });
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
