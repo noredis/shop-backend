@@ -136,3 +136,4 @@ C:\VSProjects\shop-backend\shop_backend\obj\Debug\net8.0\refint\shop_backend.dll
 C:\VSProjects\shop-backend\shop_backend\obj\Debug\net8.0\shop_backend.pdb
 C:\VSProjects\shop-backend\shop_backend\obj\Debug\net8.0\shop_backend.genruntimeconfig.cache
 C:\VSProjects\shop-backend\shop_backend\obj\Debug\net8.0\ref\shop_backend.dll
+C:\VSProjects\shop-backend\shop_backend\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
