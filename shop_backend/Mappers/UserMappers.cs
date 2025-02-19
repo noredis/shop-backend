@@ -12,7 +12,6 @@ namespace shop_backend.Mappers
                 Email = userDto.Email,
                 FullName = userDto.FullName,
                 Password = userDto.Password,
-                PasswordConfirm = userDto.PasswordConfirm,
                 CreatedAt = DateOnly.FromDateTime(DateTime.Now),
                 UpdatedAt = DateOnly.FromDateTime(DateTime.Now)
             };

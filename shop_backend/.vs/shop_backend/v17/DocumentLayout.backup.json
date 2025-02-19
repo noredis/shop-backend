@@ -5,14 +5,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend.csproj|c:\\vsprojects\\shop-backend\\shop_backend\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend.csproj|c:\\vsprojects\\shop-backend\\shop_backend\\dtos\\user\\registeruserrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend.csproj|solutionrelative:dtos\\user\\registeruserrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend.csproj|c:\\vsprojects\\shop-backend\\shop_backend\\mappers\\usermappers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend.csproj|solutionrelative:mappers\\usermappers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,34 +14,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "UserMappers.cs",
-              "DocumentMoniker": "C:\\VSProjects\\shop-backend\\shop_backend\\Mappers\\UserMappers.cs",
-              "RelativeDocumentMoniker": "Mappers\\UserMappers.cs",
-              "ToolTip": "C:\\VSProjects\\shop-backend\\shop_backend\\Mappers\\UserMappers.cs",
-              "RelativeToolTip": "Mappers\\UserMappers.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-18T15:30:24.341Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "RegisterUserRequestDto.cs",
-              "DocumentMoniker": "C:\\VSProjects\\shop-backend\\shop_backend\\Dtos\\User\\RegisterUserRequestDto.cs",
-              "RelativeDocumentMoniker": "Dtos\\User\\RegisterUserRequestDto.cs",
-              "ToolTip": "C:\\VSProjects\\shop-backend\\shop_backend\\Dtos\\User\\RegisterUserRequestDto.cs",
-              "RelativeToolTip": "Dtos\\User\\RegisterUserRequestDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAzAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-18T15:27:53.809Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -58,9 +24,9 @@
               "RelativeDocumentMoniker": "Controllers\\UserController.cs",
               "ToolTip": "C:\\VSProjects\\shop-backend\\shop_backend\\Controllers\\UserController.cs",
               "RelativeToolTip": "Controllers\\UserController.cs",
-              "ViewState": "AgIAACkAAAAAAAAAAAAwwD8AAABOAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGsAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-18T15:02:51.515Z",
+              "WhenOpened": "2025-02-19T08:28:24.403Z",
               "EditorCaption": ""
             }
           ]
