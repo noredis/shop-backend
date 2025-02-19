@@ -7,6 +7,7 @@ using shop_backend.Models;
 using shop_backend.Dtos.User;
 using shop_backend.Mappers;
 using System.Text;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace shop_backend.Controllers
 {
@@ -60,6 +61,11 @@ namespace shop_backend.Controllers
             string encPassword = "";
             string encConfirmation = "";
 
+            if (SearchForEmail(userModel.Email))
+            {
+                return BadRequest("Account with this email already exists");
+            }
+
             if (!ValidatePassword(userModel.Password))
             {
                 return BadRequest("Password must contain lowercase and uppercase latin letters and at least 1 digit and special symbol." +
@@ -81,6 +87,13 @@ namespace shop_backend.Controllers
                 _context.SaveChanges();
                 return CreatedAtAction(nameof(GetUserbyId), new { id = userModel.Id }, userModel.ToUserResponceDto());
             }
+        }
+
+        private bool SearchForEmail(string email)
+        {
+            var user = _context.User.Where(u => u.Email.Equals(email)).ToList();
+            bool isFound = user.Exists(u => u.Email.Equals(email));
+            return isFound;
         }
 
         private bool ValidatePassword(string password)
