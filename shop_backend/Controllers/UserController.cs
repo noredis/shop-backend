@@ -79,7 +79,7 @@ namespace shop_backend.Controllers
                 userModel.Password = encPassword;
                 _context.User.Add(userModel);
                 _context.SaveChanges();
-                return CreatedAtAction(nameof(GetUserbyId), new { id = userModel.Id }, userModel);
+                return CreatedAtAction(nameof(GetUserbyId), new { id = userModel.Id }, userModel.ToUserResponceDto());
             }
         }
 

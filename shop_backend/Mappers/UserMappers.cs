@@ -16,5 +16,16 @@ namespace shop_backend.Mappers
                 UpdatedAt = DateOnly.FromDateTime(DateTime.Now)
             };
         }
+
+        public static UserResponceDto ToUserResponceDto(this User user)
+        {
+            return new UserResponceDto
+            {
+                Email = user.Email,
+                FullName = user.FullName,
+                CreatedAt = user.CreatedAt,
+                UpdatedAt = user.UpdatedAt
+            };
+        }
     }
 }
