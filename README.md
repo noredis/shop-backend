@@ -27,3 +27,7 @@
   - Content-Type: application/json
   - Location: /api/v1/user/{id}
 - deadline: 22.02.2025
+- completed: 19.02.2025
+
+## Выделить бизнес-логику в сервисы, инвертировать зависимости при помощи репозитория
+ - deadline: 25.02.2025
