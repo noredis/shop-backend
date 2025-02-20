@@ -1,0 +1,44 @@
+[
+  {
+    "ContainingType": "shop_backend.Controllers.UserController",
+    "Method": "RegisterUser",
+    "RelativePath": "api/v1/register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userDto",
+        "Type": "shop_backend.Dtos.User.RegisterUserRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "shop_backend.Controllers.UserController",
+    "Method": "GetUserbyId",
+    "RelativePath": "api/v1/user/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "shop_backend.Controllers.UserController",
+    "Method": "GetUsers",
+    "RelativePath": "api/v1/users",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]
