@@ -8,6 +8,7 @@ using shop_backend.Dtos.User;
 using shop_backend.Mappers;
 using System.Text;
 using Microsoft.EntityFrameworkCore.Query;
+using shop_backend.Interfaces.Repository;
 
 namespace shop_backend.Controllers
 {
@@ -16,25 +17,28 @@ namespace shop_backend.Controllers
     public class UserController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-        public UserController(ApplicationDbContext context)
+        private readonly IUserRepository _userRepo;
+
+        public UserController(ApplicationDbContext context, IUserRepository userRepo)
         {
             _context = context;
+            _userRepo = userRepo;
         }
 
         [HttpGet]
         [Route("users")]
         public IActionResult GetUsers()
         {
-            List<User> users = _context.User.ToList();
+            List<User> users = _userRepo.SelectUsers();
 
             return Ok(users);
         }
 
         [HttpGet]
         [Route("user/{id}")]
-        public IActionResult GetUserbyId([FromRoute] int id)
+        public IActionResult GetUserById([FromRoute] int id)
         {
-            var user = _context.User.Find(id);
+            var user = _userRepo.SelectUserById(id);
             
             if (user == null)
             {
@@ -83,9 +87,8 @@ namespace shop_backend.Controllers
             else
             {
                 userModel.Password = encPassword;
-                _context.User.Add(userModel);
-                _context.SaveChanges();
-                return CreatedAtAction(nameof(GetUserbyId), new { id = userModel.Id }, userModel.ToUserResponceDto());
+                _userRepo.InsertUser(userModel);
+                return CreatedAtAction(nameof(GetUserById), new { id = userModel.Id }, userModel.ToUserResponceDto());
             }
         }
 

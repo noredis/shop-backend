@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using shop_backend.Data;
+using shop_backend.Interfaces.Repository;
+using shop_backend.Repository;
 
 namespace shop_backend
 {
@@ -19,6 +21,8 @@ namespace shop_backend
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
 
             var app = builder.Build();
 
