@@ -7,12 +7,16 @@
       "RelativeMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend.csproj|c:\\vsprojects\\shop-backend\\shop_backend\\repository\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend.csproj|solutionrelative:repository\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend.csproj|c:\\vsprojects\\shop-backend\\shop_backend\\interfaces\\service\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend.csproj|solutionrelative:interfaces\\service\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend.csproj|c:\\vsprojects\\shop-backend\\shop_backend\\mappers\\usermappers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend.csproj|solutionrelative:mappers\\usermappers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend.csproj|c:\\vsprojects\\shop-backend\\shop_backend\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend.csproj|solutionrelative:services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend.csproj|c:\\vsprojects\\shop-backend\\shop_backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,32 +26,45 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "UserMappers.cs",
-              "DocumentMoniker": "C:\\VSProjects\\shop-backend\\shop_backend\\Mappers\\UserMappers.cs",
-              "RelativeDocumentMoniker": "Mappers\\UserMappers.cs",
-              "ToolTip": "C:\\VSProjects\\shop-backend\\shop_backend\\Mappers\\UserMappers.cs",
-              "RelativeToolTip": "Mappers\\UserMappers.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAxAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\VSProjects\\shop-backend\\shop_backend\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\VSProjects\\shop-backend\\shop_backend\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAgwBsAAABEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-22T15:08:46.321Z",
+              "WhenOpened": "2025-02-22T15:45:10.029Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UserService.cs",
+              "DocumentMoniker": "C:\\VSProjects\\shop-backend\\shop_backend\\Services\\UserService.cs",
+              "RelativeDocumentMoniker": "Services\\UserService.cs",
+              "ToolTip": "C:\\VSProjects\\shop-backend\\shop_backend\\Services\\UserService.cs",
+              "RelativeToolTip": "Services\\UserService.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAEMAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-22T15:28:38.833Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "UserRepository.cs",
-              "DocumentMoniker": "C:\\VSProjects\\shop-backend\\shop_backend\\Repository\\UserRepository.cs",
-              "RelativeDocumentMoniker": "Repository\\UserRepository.cs",
-              "ToolTip": "C:\\VSProjects\\shop-backend\\shop_backend\\Repository\\UserRepository.cs",
-              "RelativeToolTip": "Repository\\UserRepository.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABMAAAAjAAAAAAAAAA==",
+              "Title": "IUserService.cs",
+              "DocumentMoniker": "C:\\VSProjects\\shop-backend\\shop_backend\\Interfaces\\Service\\IUserService.cs",
+              "RelativeDocumentMoniker": "Interfaces\\Service\\IUserService.cs",
+              "ToolTip": "C:\\VSProjects\\shop-backend\\shop_backend\\Interfaces\\Service\\IUserService.cs",
+              "RelativeToolTip": "Interfaces\\Service\\IUserService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-22T14:59:12.888Z",
+              "WhenOpened": "2025-02-22T15:23:14.665Z",
               "EditorCaption": ""
             },
             {
@@ -58,7 +75,7 @@
               "RelativeDocumentMoniker": "Controllers\\UserController.cs",
               "ToolTip": "C:\\VSProjects\\shop-backend\\shop_backend\\Controllers\\UserController.cs",
               "RelativeToolTip": "Controllers\\UserController.cs",
-              "ViewState": "AgIAAEEAAAAAAAAAAAAIwFUAAAANAAAAAAAAAA==",
+              "ViewState": "AgIAAEQAAAAAAAAAAAAIwGAAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-19T10:14:35.788Z",
               "EditorCaption": ""

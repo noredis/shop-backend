@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using shop_backend.Data;
 using shop_backend.Interfaces.Repository;
+using shop_backend.Interfaces.Service;
 using shop_backend.Repository;
+using shop_backend.Services;
 
 namespace shop_backend
 {
@@ -23,6 +25,7 @@ namespace shop_backend
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IUserService, UserService>();
 
             var app = builder.Build();
 
