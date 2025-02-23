@@ -49,4 +49,5 @@
    - access_token - действует 24 часа, после чего пользователь должен отправить запрос POST /api/v1/refresh с refresh-токеном, и получить новые токены
    - refresh_token - нет срока годности
  - output status code: 200
+ - failure status code: 401
  - deadline: 28.02.2025
