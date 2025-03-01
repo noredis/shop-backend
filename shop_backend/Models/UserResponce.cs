@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace shop_backend.Dtos.User
+namespace shop_backend.Models
 {
-    public class UserResponceDto
+    public class UserResponce
     {
         [Required]
         [EmailAddress]

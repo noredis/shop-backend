@@ -17,9 +17,9 @@ namespace shop_backend.Mappers
             };
         }
 
-        public static UserResponceDto ToUserResponceDto(this User user)
+        public static UserResponce FromUser(User user)
         {
-            return new UserResponceDto
+            return new UserResponce
             {
                 Email = user.Email,
                 FullName = user.FullName,

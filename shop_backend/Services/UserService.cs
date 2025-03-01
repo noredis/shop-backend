@@ -1,4 +1,6 @@
-﻿using shop_backend.Interfaces.Repository;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
+using shop_backend.Interfaces.Repository;
 using shop_backend.Interfaces.Service;
 using shop_backend.Models;
 
@@ -96,6 +98,41 @@ namespace shop_backend.Services
                 !hasSpace.Success;
 
             return isValid;
+        }
+
+        public int Create(User userModel, string passwordConfirm)
+        {
+            string encPassword = "";
+            string encConfirmation = "";
+
+            if (SearchForEmail(userModel.Email))
+            {
+                //return TypedResults.BadRequest(400, "Account with this email already exists");
+                return 400;
+            }
+
+            if (!ValidatePassword(userModel.Password))
+            {
+                //return BadRequest("Password must contain lowercase and uppercase latin letters and at least 1 digit and special symbol." +
+                //    " Password must not contain any spaces, tabs or newlines");
+                return 400;
+            }
+            else
+            {
+                HashPassword(userModel.Password, passwordConfirm, out encPassword, out encConfirmation);
+            }
+
+            if (!ConfirmPassword(encPassword, encConfirmation))
+            {
+                //return BadRequest("The password confirmation does not match");
+                return 400;
+            }
+            else
+            {
+                userModel.Password = encPassword;
+                _userRepo.InsertUser(userModel);
+                return 201;
+            }
         }
     }
 }
