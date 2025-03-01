@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using shop_backend.Dtos.User;
 using shop_backend.Interfaces.Repository;
 using shop_backend.Interfaces.Service;
 using shop_backend.Models;
@@ -13,10 +14,12 @@ namespace shop_backend.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepo;
+        private readonly ITokenService _tokenService;
 
-        public UserService(IUserRepository userRepo)
+        public UserService(IUserRepository userRepo, ITokenService tokenService)
         {
             _userRepo = userRepo;
+            _tokenService = tokenService;
         }
 
         public bool CheckNotFound(List<User> users)
@@ -32,6 +35,23 @@ namespace shop_backend.Services
         public bool ConfirmPassword(string encPassword, string encConfirmation)
         {
             return encPassword.Equals(encConfirmation);
+        }
+
+        public void HashPassword(string password, out string encPassword)
+        {
+            MD5 md5 = MD5.Create();
+
+            byte[] pwdByte = ASCIIEncoding.ASCII.GetBytes(password);
+
+            pwdByte = md5.ComputeHash(pwdByte);
+
+            StringBuilder sb = new StringBuilder();
+            foreach (byte item in pwdByte)
+            {
+                sb.Append(item.ToString("x2"));
+            }
+
+            encPassword = sb.ToString();
         }
 
         public void HashPassword(string password, string confirmation, out string encPassword, out string encConfirmation)
@@ -132,6 +152,27 @@ namespace shop_backend.Services
                 userModel.Password = encPassword;
                 _userRepo.InsertUser(userModel);
                 return 201;
+            }
+        }
+
+        public LogInResponceDto Authorize(LogInUserDto logInUserDto)
+        {
+            string encPassword = string.Empty;
+            HashPassword(logInUserDto.Password, out encPassword);
+
+            List<User> registeredUsers = _userRepo.SelectUsers().ToList();
+            User currentUser = registeredUsers.Find(u => u.Password.Equals(encPassword) && u.Email == logInUserDto.Email);
+
+            if (currentUser == null)
+            {
+                return null;
+            }
+            else
+            {
+                return new LogInResponceDto
+                {
+                    AccessToken = _tokenService.CreateToken(currentUser)
+                };
             }
         }
     }

@@ -1,6 +1,22 @@
 [
   {
     "ContainingType": "shop_backend.Controllers.UserController",
+    "Method": "AuthorizeUser",
+    "RelativePath": "api/v1/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "logInUserDto",
+        "Type": "shop_backend.Dtos.User.LogInUserDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "shop_backend.Controllers.UserController",
     "Method": "RegisterUser",
     "RelativePath": "api/v1/register",
     "HttpMethod": "POST",

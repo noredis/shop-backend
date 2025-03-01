@@ -78,5 +78,26 @@ namespace shop_backend.Controllers
                 return CreatedAtAction(nameof(GetUserById), new { id = userModel.Id }, UserMappers.FromUser(userModel));
             }
         }
+
+        [HttpPost]
+        [Route("login")]
+        public IActionResult AuthorizeUser(LogInUserDto logInUserDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            LogInResponceDto responceDto = _userService.Authorize(logInUserDto);
+
+            if (responceDto != null)
+            {
+                return Ok(responceDto);
+            }
+            else
+            {
+                return Unauthorized("The user was not found");
+            }
+        }
     }
 }
