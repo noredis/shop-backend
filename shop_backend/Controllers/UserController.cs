@@ -5,6 +5,7 @@ using shop_backend.Dtos.User;
 using shop_backend.Mappers;
 using shop_backend.Interfaces.Repository;
 using shop_backend.Interfaces.Service;
+using Microsoft.AspNetCore.Authorization;
 
 namespace shop_backend.Controllers
 {
@@ -23,6 +24,7 @@ namespace shop_backend.Controllers
 
         [HttpGet]
         [Route("users")]
+        [Authorize]
         public IActionResult GetUsers()
         {
             List<User> users = _userRepo.SelectUsers();
@@ -39,6 +41,7 @@ namespace shop_backend.Controllers
 
         [HttpGet]
         [Route("user/{id}")]
+        [Authorize]
         public IActionResult GetUserById([FromRoute] int id)
         {
             var user = _userRepo.SelectUserById(id);
