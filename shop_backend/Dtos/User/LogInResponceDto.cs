@@ -6,5 +6,7 @@ namespace shop_backend.Dtos.User
     {
         [Required]
         public string AccessToken { get; set; } = string.Empty;
+        [Required]
+        public string RefreshToken { get; set; } = string.Empty;
     }
 }

@@ -158,6 +158,9 @@ namespace shop_backend.Services
         public LogInResponceDto Authorize(LogInUserDto logInUserDto)
         {
             string encPassword = string.Empty;
+            string accessToken = string.Empty;
+            string refreshToken = string.Empty;
+
             HashPassword(logInUserDto.Password, out encPassword);
 
             List<User> registeredUsers = _userRepo.SelectUsers().ToList();
@@ -169,9 +172,11 @@ namespace shop_backend.Services
             }
             else
             {
+                _tokenService.CreateToken(currentUser, out accessToken, out refreshToken);
                 return new LogInResponceDto
                 {
-                    AccessToken = _tokenService.CreateToken(currentUser)
+                    AccessToken = accessToken,
+                    RefreshToken = refreshToken
                 };
             }
         }

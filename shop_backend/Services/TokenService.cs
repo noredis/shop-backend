@@ -1,11 +1,14 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 using Microsoft.IdentityModel.Tokens;
-
+using shop_backend.Dtos.User;
+using shop_backend.Interfaces.Repository;
 using shop_backend.Interfaces.Service;
 using shop_backend.Models;
+using shop_backend.Repository;
 
 
 namespace shop_backend.Services
@@ -14,14 +17,17 @@ namespace shop_backend.Services
     {
         private readonly IConfiguration _config;
         private readonly SymmetricSecurityKey _key;
+        private readonly ITokenRepository _tokenRepo;
 
-        public TokenService(IConfiguration config)
+        public TokenService(IConfiguration config, ITokenRepository tokenRepo)
         {
             _config = config;
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWT:SigningKey"]));
+
+            _tokenRepo = tokenRepo;
         }
 
-        public string CreateToken(User user)
+        public void CreateToken(User user, out string accessToken, out string refreshToken)
         {
             var claims = new List<Claim>
             {
@@ -44,7 +50,43 @@ namespace shop_backend.Services
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return tokenHandler.WriteToken(token);
+            RefreshToken _refreshToken = new RefreshToken
+            {
+                UserID = user.Id,
+                Token = GenerateRefreshToken()
+            };
+
+            _tokenRepo.InsertRefreshToken(_refreshToken);
+
+            accessToken = tokenHandler.WriteToken(token);
+            refreshToken = _refreshToken.Token;
+        }
+
+        private string GenerateRefreshToken()
+        {
+            return Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
+        }
+
+        public LogInResponceDto RefreshAccessToken(string refreshToken)
+        {
+            RefreshToken? token = _tokenRepo.FindRefreshToken(refreshToken);
+
+            string newAccessToken = String.Empty;
+            string newRefreshToken = String.Empty;
+
+            if (token != null)
+            {
+                CreateToken(token.User, out newAccessToken, out newRefreshToken);
+                return new LogInResponceDto
+                {
+                    AccessToken = newAccessToken,
+                    RefreshToken = newRefreshToken
+                };
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

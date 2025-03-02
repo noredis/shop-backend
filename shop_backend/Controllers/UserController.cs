@@ -6,6 +6,7 @@ using shop_backend.Mappers;
 using shop_backend.Interfaces.Repository;
 using shop_backend.Interfaces.Service;
 using Microsoft.AspNetCore.Authorization;
+using shop_backend.Dtos.RefreshToken;
 
 namespace shop_backend.Controllers
 {
@@ -15,45 +16,30 @@ namespace shop_backend.Controllers
     {
         private readonly IUserRepository _userRepo;
         private readonly IUserService _userService;
+        private readonly ITokenService _tokenService;
 
-        public UserController(IUserRepository userRepo, IUserService userService)
+        public UserController(IUserRepository userRepo, IUserService userService, ITokenService tokenService)
         {
             _userRepo = userRepo;
             _userService = userService;
+            _tokenService = tokenService;
         }
 
         [HttpGet]
         [Route("users")]
-        [Authorize]
+        //[Authorize]
         public IActionResult GetUsers()
         {
             List<User> users = _userRepo.SelectUsers();
-            //if (_userService.CheckNotFound(users))
-            //{
-            //    return NotFound("There are no registered users");
-            //}
-            //else
-            //{
-            //    return Ok(users);
-            //}
             return Ok(users);
         }
 
         [HttpGet]
         [Route("user/{id}")]
-        [Authorize]
+        //[Authorize]
         public IActionResult GetUserById([FromRoute] int id)
         {
             var user = _userRepo.SelectUserById(id);
-
-            //if (_userService.CheckNotFound(user))
-            //{
-            //    return NotFound("Account with this id does not exist");
-            //}
-            //else
-            //{
-            //    return Ok(user);
-            //}
 
             return Ok(user);
         }
@@ -84,7 +70,7 @@ namespace shop_backend.Controllers
 
         [HttpPost]
         [Route("login")]
-        public IActionResult AuthorizeUser(LogInUserDto logInUserDto)
+        public IActionResult AuthorizeUser([FromBody] LogInUserDto logInUserDto)
         {
             if (!ModelState.IsValid)
             {
@@ -100,6 +86,27 @@ namespace shop_backend.Controllers
             else
             {
                 return Unauthorized("The user was not found");
+            }
+        }
+
+        [HttpPost]
+        [Route("refresh")]
+        public IActionResult RefreshToken([FromBody] RefreshTokenDto refreshTokenDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            LogInResponceDto responceDto = _tokenService.RefreshAccessToken(refreshTokenDto.RefreshToken);
+
+            if (responceDto == null)
+            {
+                return Unauthorized("The user was not found");
+            }
+            else
+            {
+                return Ok(responceDto);
             }
         }
     }

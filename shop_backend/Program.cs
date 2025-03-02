@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+
 using shop_backend.Data;
 using shop_backend.Interfaces.Repository;
 using shop_backend.Interfaces.Service;
@@ -28,6 +29,7 @@ namespace shop_backend
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<ITokenService, TokenService>();
+            builder.Services.AddScoped<ITokenRepository, TokenRepository>();
 
             // TODO: fix this crap
             builder.Services.AddSwaggerGen(option =>

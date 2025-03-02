@@ -17,6 +17,22 @@
   },
   {
     "ContainingType": "shop_backend.Controllers.UserController",
+    "Method": "RefreshToken",
+    "RelativePath": "api/v1/refresh",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "refreshTokenDto",
+        "Type": "shop_backend.Dtos.RefreshToken.RefreshTokenDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "shop_backend.Controllers.UserController",
     "Method": "RegisterUser",
     "RelativePath": "api/v1/register",
     "HttpMethod": "POST",
