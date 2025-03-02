@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 using shop_backend.Models;
 using shop_backend.Dtos.User;
 using shop_backend.Mappers;
 using shop_backend.Interfaces.Repository;
 using shop_backend.Interfaces.Service;
-using Microsoft.AspNetCore.Authorization;
 using shop_backend.Dtos.RefreshToken;
 
 namespace shop_backend.Controllers
@@ -25,15 +25,16 @@ namespace shop_backend.Controllers
             _tokenService = tokenService;
         }
 
+        [Authorize]
         [HttpGet]
         [Route("users")]
-        //[Authorize]
         public IActionResult GetUsers()
         {
             List<User> users = _userRepo.SelectUsers();
             return Ok(users);
         }
 
+        [Authorize]
         [HttpGet]
         [Route("user/{id}")]
         //[Authorize]
