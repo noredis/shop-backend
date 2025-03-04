@@ -1,4 +1,7 @@
-﻿using shop_backend.Interfaces.Repository;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
+using shop_backend.Dtos.User;
+using shop_backend.Interfaces.Repository;
 using shop_backend.Interfaces.Service;
 using shop_backend.Models;
 
@@ -11,10 +14,12 @@ namespace shop_backend.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepo;
+        private readonly ITokenService _tokenService;
 
-        public UserService(IUserRepository userRepo)
+        public UserService(IUserRepository userRepo, ITokenService tokenService)
         {
             _userRepo = userRepo;
+            _tokenService = tokenService;
         }
 
         public bool CheckNotFound(List<User> users)
@@ -30,6 +35,23 @@ namespace shop_backend.Services
         public bool ConfirmPassword(string encPassword, string encConfirmation)
         {
             return encPassword.Equals(encConfirmation);
+        }
+
+        public void HashPassword(string password, out string encPassword)
+        {
+            MD5 md5 = MD5.Create();
+
+            byte[] pwdByte = ASCIIEncoding.ASCII.GetBytes(password);
+
+            pwdByte = md5.ComputeHash(pwdByte);
+
+            StringBuilder sb = new StringBuilder();
+            foreach (byte item in pwdByte)
+            {
+                sb.Append(item.ToString("x2"));
+            }
+
+            encPassword = sb.ToString();
         }
 
         public void HashPassword(string password, string confirmation, out string encPassword, out string encConfirmation)
@@ -96,6 +118,67 @@ namespace shop_backend.Services
                 !hasSpace.Success;
 
             return isValid;
+        }
+
+        public int Create(User userModel, string passwordConfirm)
+        {
+            string encPassword = "";
+            string encConfirmation = "";
+
+            if (SearchForEmail(userModel.Email))
+            {
+                //return TypedResults.BadRequest(400, "Account with this email already exists");
+                return 400;
+            }
+
+            if (!ValidatePassword(userModel.Password))
+            {
+                //return BadRequest("Password must contain lowercase and uppercase latin letters and at least 1 digit and special symbol." +
+                //    " Password must not contain any spaces, tabs or newlines");
+                return 400;
+            }
+            else
+            {
+                HashPassword(userModel.Password, passwordConfirm, out encPassword, out encConfirmation);
+            }
+
+            if (!ConfirmPassword(encPassword, encConfirmation))
+            {
+                //return BadRequest("The password confirmation does not match");
+                return 400;
+            }
+            else
+            {
+                userModel.Password = encPassword;
+                _userRepo.InsertUser(userModel);
+                return 201;
+            }
+        }
+
+        public LogInResponceDto Authorize(LogInUserDto logInUserDto)
+        {
+            string encPassword = string.Empty;
+            string accessToken = string.Empty;
+            string refreshToken = string.Empty;
+
+            HashPassword(logInUserDto.Password, out encPassword);
+
+            List<User> registeredUsers = _userRepo.SelectUsers().ToList();
+            User currentUser = registeredUsers.Find(u => u.Password.Equals(encPassword) && u.Email == logInUserDto.Email);
+
+            if (currentUser == null)
+            {
+                return null;
+            }
+            else
+            {
+                _tokenService.CreateToken(currentUser, out accessToken, out refreshToken);
+                return new LogInResponceDto
+                {
+                    AccessToken = accessToken,
+                    RefreshToken = refreshToken
+                };
+            }
         }
     }
 }

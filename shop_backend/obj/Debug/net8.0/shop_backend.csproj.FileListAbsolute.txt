@@ -136,4 +136,10 @@ C:\VSProjects\shop-backend\shop_backend\obj\Debug\net8.0\refint\shop_backend.dll
 C:\VSProjects\shop-backend\shop_backend\obj\Debug\net8.0\shop_backend.pdb
 C:\VSProjects\shop-backend\shop_backend\obj\Debug\net8.0\shop_backend.genruntimeconfig.cache
 C:\VSProjects\shop-backend\shop_backend\obj\Debug\net8.0\ref\shop_backend.dll
+C:\VSProjects\shop-backend\shop_backend\bin\Debug\net8.0\Microsoft.Bcl.Memory.dll
+C:\VSProjects\shop-backend\shop_backend\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\VSProjects\shop-backend\shop_backend\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\VSProjects\shop-backend\shop_backend\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\VSProjects\shop-backend\shop_backend\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\VSProjects\shop-backend\shop_backend\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
 C:\VSProjects\shop-backend\shop_backend\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

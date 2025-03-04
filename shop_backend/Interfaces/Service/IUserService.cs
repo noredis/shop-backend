@@ -1,4 +1,5 @@
-﻿using shop_backend.Models;
+﻿using shop_backend.Dtos.User;
+using shop_backend.Models;
 
 namespace shop_backend.Interfaces.Service
 {
@@ -10,5 +11,7 @@ namespace shop_backend.Interfaces.Service
         public bool ValidatePassword(string password);
         public void HashPassword(string password, string confirmation, out string encPaswword, out string encConfirmation);
         public bool ConfirmPassword(string encPassword, string encConfirmation);
+        public int Create(User userModel, string passwordConfirm);
+        public LogInResponceDto Authorize(LogInUserDto logInUserDto); 
     }
 }

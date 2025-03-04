@@ -11,5 +11,7 @@ namespace shop_backend.Data
         }
 
         public DbSet<User> User { get; set; }
+
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
     }
 }

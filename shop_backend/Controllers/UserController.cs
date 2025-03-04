@@ -1,15 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Text.RegularExpressions;
-using System.Security.Cryptography;
+using Microsoft.AspNetCore.Authorization;
 
-using shop_backend.Data;
 using shop_backend.Models;
 using shop_backend.Dtos.User;
 using shop_backend.Mappers;
-using System.Text;
-using Microsoft.EntityFrameworkCore.Query;
 using shop_backend.Interfaces.Repository;
 using shop_backend.Interfaces.Service;
+using shop_backend.Dtos.RefreshToken;
 
 namespace shop_backend.Controllers
 {
@@ -19,42 +16,33 @@ namespace shop_backend.Controllers
     {
         private readonly IUserRepository _userRepo;
         private readonly IUserService _userService;
+        private readonly ITokenService _tokenService;
 
-        public UserController(IUserRepository userRepo, IUserService userService)
+        public UserController(IUserRepository userRepo, IUserService userService, ITokenService tokenService)
         {
             _userRepo = userRepo;
             _userService = userService;
+            _tokenService = tokenService;
         }
 
+        [Authorize]
         [HttpGet]
         [Route("users")]
         public IActionResult GetUsers()
         {
             List<User> users = _userRepo.SelectUsers();
-            if (_userService.CheckNotFound(users))
-            {
-                return NotFound("There are no registered users");
-            }
-            else
-            {
-                return Ok(users);
-            }
+            return Ok(users);
         }
 
+        [Authorize]
         [HttpGet]
         [Route("user/{id}")]
+        //[Authorize]
         public IActionResult GetUserById([FromRoute] int id)
         {
             var user = _userRepo.SelectUserById(id);
-            
-            if (_userService.CheckNotFound(user))
-            {
-                return NotFound("Account with this id does not exist");
-            }
-            else
-            {
-                return Ok(user);
-            }
+
+            return Ok(user);
         }
 
         [HttpPost]
@@ -69,33 +57,57 @@ namespace shop_backend.Controllers
             User userModel = userDto.RegisterDtoToUser();
             string passwordConfirm = userDto.PasswordConfirm;
 
-            string encPassword = "";
-            string encConfirmation = "";
-
-            if (_userService.SearchForEmail(userModel.Email))
+            int statusCode = _userService.Create(userModel, passwordConfirm);
+            
+            if (statusCode != 201)
             {
-                return BadRequest("Account with this email already exists");
-            }
-
-            if (!_userService.ValidatePassword(userModel.Password))
-            {
-                return BadRequest("Password must contain lowercase and uppercase latin letters and at least 1 digit and special symbol." +
-                    " Password must not contain any spaces, tabs or newlines");
+                return StatusCode(statusCode);
             }
             else
             {
-                _userService.HashPassword(userModel.Password, passwordConfirm, out encPassword, out encConfirmation);
+                return CreatedAtAction(nameof(GetUserById), new { id = userModel.Id }, UserMappers.FromUser(userModel));
+            }
+        }
+
+        [HttpPost]
+        [Route("login")]
+        public IActionResult AuthorizeUser([FromBody] LogInUserDto logInUserDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
             }
 
-            if (!_userService.ConfirmPassword(encPassword, encConfirmation))
+            LogInResponceDto responceDto = _userService.Authorize(logInUserDto);
+
+            if (responceDto != null)
             {
-                return BadRequest("The password confirmation does not match");
+                return Ok(responceDto);
             }
             else
             {
-                userModel.Password = encPassword;
-                _userRepo.InsertUser(userModel);
-                return CreatedAtAction(nameof(GetUserById), new { id = userModel.Id }, userModel.ToUserResponceDto());
+                return Unauthorized("The user was not found");
+            }
+        }
+
+        [HttpPost]
+        [Route("refresh")]
+        public IActionResult RefreshToken([FromBody] RefreshTokenDto refreshTokenDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            LogInResponceDto responceDto = _tokenService.RefreshAccessToken(refreshTokenDto.RefreshToken);
+
+            if (responceDto == null)
+            {
+                return Unauthorized("The user was not found");
+            }
+            else
+            {
+                return Ok(responceDto);
             }
         }
     }
