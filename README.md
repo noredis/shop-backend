@@ -51,3 +51,24 @@
  - output status code: 200
  - failure status code: 401
  - deadline: 28.02.2025
+ - completed: 02.03.2025
+## Реализовать возможность добавления товаров (пока для всех зарегистрированых пользователей)
+ - method: POST /api/v1/product
+ - input: application/json
+   {
+     "name": string,
+     "category": string,
+     "image": blob,
+     "description": string,
+     "price": double
+   }
+ - constraints:
+   - price > 0
+   - image - может быть null
+   - category - пока просто строка
+   - name - не пустой
+   - description - может быть пустым
+ - output status code: 201
+ - failure status code: 400
+ - output headers: [Location]
+ - deadline: 11.03.2025
