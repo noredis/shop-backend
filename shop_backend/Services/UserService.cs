@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using shop_backend.Dtos.User;
 using shop_backend.Interfaces.Repository;
 using shop_backend.Interfaces.Service;
+using shop_backend.Mappers;
 using shop_backend.Models;
 
 using System.Security.Cryptography;
@@ -120,22 +121,20 @@ namespace shop_backend.Services
             return isValid;
         }
 
-        public int Create(User userModel, string passwordConfirm)
+        public Results<Created<UserResponce>, BadRequest<string>> Create(User userModel, string passwordConfirm, IUrlHelper urlHelper)
         {
             string encPassword = "";
             string encConfirmation = "";
 
             if (SearchForEmail(userModel.Email))
             {
-                //return TypedResults.BadRequest(400, "Account with this email already exists");
-                return 400;
+                return TypedResults.BadRequest("Account with this email already exists");
             }
 
             if (!ValidatePassword(userModel.Password))
             {
-                //return BadRequest("Password must contain lowercase and uppercase latin letters and at least 1 digit and special symbol." +
-                //    " Password must not contain any spaces, tabs or newlines");
-                return 400;
+                return TypedResults.BadRequest("Password must contain lowercase and uppercase latin letters and at least 1 digit and special symbol. " +
+                    "Password must not contain any spaces, tabs or newlines");
             }
             else
             {
@@ -144,14 +143,16 @@ namespace shop_backend.Services
 
             if (!ConfirmPassword(encPassword, encConfirmation))
             {
-                //return BadRequest("The password confirmation does not match");
-                return 400;
+                return TypedResults.BadRequest("The password confirmation does not match");
             }
             else
             {
                 userModel.Password = encPassword;
                 _userRepo.InsertUser(userModel);
-                return 201;
+
+                string? locationHeader = urlHelper.Action("GetUserById", "User", new {id = userModel.Id});
+
+                return TypedResults.Created(locationHeader, UserMappers.FromUser(userModel));
             }
         }
 

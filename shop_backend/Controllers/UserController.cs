@@ -47,26 +47,19 @@ namespace shop_backend.Controllers
 
         [HttpPost]
         [Route("register")]
-        public IActionResult RegisterUser([FromBody] RegisterUserRequestDto userDto)
+        public IResult RegisterUser([FromBody] RegisterUserRequestDto userDto)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return TypedResults.BadRequest(ModelState);
             }
 
             User userModel = userDto.RegisterDtoToUser();
             string passwordConfirm = userDto.PasswordConfirm;
 
-            int statusCode = _userService.Create(userModel, passwordConfirm);
-            
-            if (statusCode != 201)
-            {
-                return StatusCode(statusCode);
-            }
-            else
-            {
-                return CreatedAtAction(nameof(GetUserById), new { id = userModel.Id }, UserMappers.FromUser(userModel));
-            }
+            IResult status = _userService.Create(userModel, passwordConfirm, Url);
+
+            return status;
         }
 
         [HttpPost]
