@@ -23,16 +23,6 @@ namespace shop_backend.Services
             _tokenService = tokenService;
         }
 
-        public bool CheckNotFound(List<User> users)
-        {
-            return users == null;
-        }
-
-        public bool CheckNotFound(User user)
-        {
-            return user == null;
-        }
-
         public bool ConfirmPassword(string encPassword, string encConfirmation)
         {
             return encPassword.Equals(encConfirmation);
@@ -165,7 +155,7 @@ namespace shop_backend.Services
             HashPassword(logInUserDto.Password, out encPassword);
 
             List<User> registeredUsers = _userRepo.SelectUsers().ToList();
-            User currentUser = registeredUsers.Find(u => u.Password.Equals(encPassword) && u.Email == logInUserDto.Email);
+            User? currentUser = registeredUsers.Find(u => u.Password.Equals(encPassword) && u.Email == logInUserDto.Email);
 
             if (currentUser == null)
             {
@@ -180,6 +170,18 @@ namespace shop_backend.Services
                     RefreshToken = refreshToken
                 };
             }
+        }
+
+        public List<User> Find()
+        {
+            List<User> users = _userRepo.SelectUsers();
+            return users;
+        }
+
+        public User? FindById(int id)
+        {
+            User? user = _userRepo.SelectUserById(id);
+            return user;
         }
     }
 }

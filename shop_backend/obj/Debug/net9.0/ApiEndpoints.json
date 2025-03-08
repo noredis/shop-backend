@@ -1,6 +1,6 @@
 [
   {
-    "ContainingType": "shop_backend.Controllers.UserController",
+    "ContainingType": "shop_backend.Controllers.AuthController",
     "Method": "AuthorizeUser",
     "RelativePath": "api/v1/login",
     "HttpMethod": "POST",
@@ -16,7 +16,23 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "shop_backend.Controllers.UserController",
+    "ContainingType": "shop_backend.Controllers.ProductController",
+    "Method": "AddProduct",
+    "RelativePath": "api/v1/product",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productDto",
+        "Type": "shop_backend.Dtos.Product.AddProductDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "shop_backend.Controllers.AuthController",
     "Method": "RefreshToken",
     "RelativePath": "api/v1/refresh",
     "HttpMethod": "POST",
