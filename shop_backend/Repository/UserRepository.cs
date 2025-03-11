@@ -1,6 +1,5 @@
 ﻿using shop_backend.Data;
 using shop_backend.Interfaces.Repository;
-using shop_backend.Mappers;
 using shop_backend.Models;
 
 namespace shop_backend.Repository

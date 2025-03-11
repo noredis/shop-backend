@@ -1,8 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
-using System.Reflection.Metadata;
-
-namespace shop_backend.Models
+﻿namespace shop_backend.Models
 {
     public class Product
     {

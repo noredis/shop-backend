@@ -21,44 +21,30 @@ namespace shop_backend.Controllers
 
         [HttpPost]
         [Route("login")]
-        public IActionResult AuthorizeUser([FromBody] LogInUserDto logInUserDto)
+        public IResult AuthorizeUser([FromBody] LogInUserDto logInUserDto)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return TypedResults.BadRequest(ModelState);
             }
 
-            LogInResponceDto responceDto = _userService.Authorize(logInUserDto);
+            IResult status = _userService.Authorize(logInUserDto);
 
-            if (responceDto != null)
-            {
-                return Ok(responceDto);
-            }
-            else
-            {
-                return Unauthorized("The user was not found");
-            }
+            return status;
         }
 
         [HttpPost]
         [Route("refresh")]
-        public IActionResult RefreshToken([FromBody] RefreshTokenDto refreshTokenDto)
+        public IResult RefreshToken([FromBody] RefreshTokenDto refreshTokenDto)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return TypedResults.BadRequest(ModelState);
             }
 
-            LogInResponceDto responceDto = _tokenService.RefreshAccessToken(refreshTokenDto.RefreshToken);
+            IResult status = _tokenService.RefreshAccessToken(refreshTokenDto.RefreshToken);
 
-            if (responceDto == null)
-            {
-                return Unauthorized("The user was not found");
-            }
-            else
-            {
-                return Ok(responceDto);
-            }
+            return status;
         }
     }
 }

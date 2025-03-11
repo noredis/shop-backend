@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+
 using shop_backend.Configuration;
 using shop_backend.Models;
 

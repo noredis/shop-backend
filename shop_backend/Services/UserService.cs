@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+
 using shop_backend.Dtos.User;
 using shop_backend.Interfaces.Repository;
 using shop_backend.Interfaces.Service;
@@ -146,7 +147,7 @@ namespace shop_backend.Services
             }
         }
 
-        public LogInResponceDto Authorize(LogInUserDto logInUserDto)
+        public Results<Ok<LogInResponceDto>, UnauthorizedHttpResult> Authorize(LogInUserDto logInUserDto)
         {
             string encPassword = string.Empty;
             string accessToken = string.Empty;
@@ -159,16 +160,17 @@ namespace shop_backend.Services
 
             if (currentUser == null)
             {
-                return null;
+                return TypedResults.Unauthorized();
             }
             else
             {
                 _tokenService.CreateToken(currentUser, out accessToken, out refreshToken);
-                return new LogInResponceDto
-                {
-                    AccessToken = accessToken,
-                    RefreshToken = refreshToken
-                };
+                return TypedResults.Ok(
+                    new LogInResponceDto
+                    {
+                        AccessToken = accessToken,
+                        RefreshToken = refreshToken
+                    });
             }
         }
 
