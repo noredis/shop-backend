@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Smqe6l7Es1k=",
+  "dgSpecHash": "1iXh7WvyUf4=",
   "success": true,
   "projectFilePath": "C:\\VSProjects\\shop-backend\\shop_backend\\shop_backend.csproj",
   "expectedPackageFiles": [
@@ -39,9 +39,11 @@
     "C:\\Users\\visp0\\.nuget\\packages\\microsoft.identitymodel.protocols.openidconnect\\8.0.1\\microsoft.identitymodel.protocols.openidconnect.8.0.1.nupkg.sha512",
     "C:\\Users\\visp0\\.nuget\\packages\\microsoft.identitymodel.tokens\\8.6.0\\microsoft.identitymodel.tokens.8.6.0.nupkg.sha512",
     "C:\\Users\\visp0\\.nuget\\packages\\microsoft.openapi\\1.6.22\\microsoft.openapi.1.6.22.nupkg.sha512",
+    "C:\\Users\\visp0\\.nuget\\packages\\microsoft.win32.systemevents\\9.0.2\\microsoft.win32.systemevents.9.0.2.nupkg.sha512",
     "C:\\Users\\visp0\\.nuget\\packages\\mono.texttemplating\\3.0.0\\mono.texttemplating.3.0.0.nupkg.sha512",
     "C:\\Users\\visp0\\.nuget\\packages\\npgsql\\9.0.2\\npgsql.9.0.2.nupkg.sha512",
     "C:\\Users\\visp0\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\9.0.3\\npgsql.entityframeworkcore.postgresql.9.0.3.nupkg.sha512",
+    "C:\\Users\\visp0\\.nuget\\packages\\sixlabors.imagesharp\\3.1.7\\sixlabors.imagesharp.3.1.7.nupkg.sha512",
     "C:\\Users\\visp0\\.nuget\\packages\\swashbuckle.aspnetcore\\7.2.0\\swashbuckle.aspnetcore.7.2.0.nupkg.sha512",
     "C:\\Users\\visp0\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\7.2.0\\swashbuckle.aspnetcore.swagger.7.2.0.nupkg.sha512",
     "C:\\Users\\visp0\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\7.2.0\\swashbuckle.aspnetcore.swaggergen.7.2.0.nupkg.sha512",
@@ -54,6 +56,7 @@
     "C:\\Users\\visp0\\.nuget\\packages\\system.composition.hosting\\7.0.0\\system.composition.hosting.7.0.0.nupkg.sha512",
     "C:\\Users\\visp0\\.nuget\\packages\\system.composition.runtime\\7.0.0\\system.composition.runtime.7.0.0.nupkg.sha512",
     "C:\\Users\\visp0\\.nuget\\packages\\system.composition.typedparts\\7.0.0\\system.composition.typedparts.7.0.0.nupkg.sha512",
+    "C:\\Users\\visp0\\.nuget\\packages\\system.drawing.common\\9.0.2\\system.drawing.common.9.0.2.nupkg.sha512",
     "C:\\Users\\visp0\\.nuget\\packages\\system.identitymodel.tokens.jwt\\8.6.0\\system.identitymodel.tokens.jwt.8.6.0.nupkg.sha512",
     "C:\\Users\\visp0\\.nuget\\packages\\system.io.pipelines\\7.0.0\\system.io.pipelines.7.0.0.nupkg.sha512",
     "C:\\Users\\visp0\\.nuget\\packages\\system.reflection.metadata\\7.0.0\\system.reflection.metadata.7.0.0.nupkg.sha512",

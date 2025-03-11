@@ -5,7 +5,6 @@ using shop_backend.Models;
 using shop_backend.Dtos.User;
 using shop_backend.Mappers;
 using shop_backend.Interfaces.Service;
-using shop_backend.Dtos.RefreshToken;
 
 namespace shop_backend.Controllers
 {
@@ -14,12 +13,10 @@ namespace shop_backend.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
-        private readonly ITokenService _tokenService;
 
         public UserController(IUserService userService, ITokenService tokenService)
         {
             _userService = userService;
-            _tokenService = tokenService;
         }
 
         [Authorize]

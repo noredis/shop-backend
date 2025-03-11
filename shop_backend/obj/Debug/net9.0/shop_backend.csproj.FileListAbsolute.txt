@@ -131,3 +131,8 @@ C:\VSProjects\shop-backend\shop_backend\obj\Debug\net9.0\shop_backend.pdb
 C:\VSProjects\shop-backend\shop_backend\obj\Debug\net9.0\shop_backend.genruntimeconfig.cache
 C:\VSProjects\shop-backend\shop_backend\obj\Debug\net9.0\ref\shop_backend.dll
 C:\VSProjects\shop-backend\shop_backend\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
+C:\VSProjects\shop-backend\shop_backend\bin\Debug\net9.0\Microsoft.Win32.SystemEvents.dll
+C:\VSProjects\shop-backend\shop_backend\bin\Debug\net9.0\SixLabors.ImageSharp.dll
+C:\VSProjects\shop-backend\shop_backend\bin\Debug\net9.0\System.Drawing.Common.dll
+C:\VSProjects\shop-backend\shop_backend\bin\Debug\net9.0\System.Private.Windows.Core.dll
+C:\VSProjects\shop-backend\shop_backend\bin\Debug\net9.0\runtimes\win\lib\net9.0\Microsoft.Win32.SystemEvents.dll
