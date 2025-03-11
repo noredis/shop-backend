@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+
 using shop_backend.Dtos.User;
 using shop_backend.Interfaces.Repository;
 using shop_backend.Interfaces.Service;
+using shop_backend.Mappers;
 using shop_backend.Models;
 
 using System.Security.Cryptography;
@@ -20,16 +22,6 @@ namespace shop_backend.Services
         {
             _userRepo = userRepo;
             _tokenService = tokenService;
-        }
-
-        public bool CheckNotFound(List<User> users)
-        {
-            return users == null;
-        }
-
-        public bool CheckNotFound(User user)
-        {
-            return user == null;
         }
 
         public bool ConfirmPassword(string encPassword, string encConfirmation)
@@ -120,22 +112,20 @@ namespace shop_backend.Services
             return isValid;
         }
 
-        public int Create(User userModel, string passwordConfirm)
+        public Results<Created<UserResponce>, BadRequest<string>> Create(User userModel, string passwordConfirm, IUrlHelper urlHelper)
         {
             string encPassword = "";
             string encConfirmation = "";
 
             if (SearchForEmail(userModel.Email))
             {
-                //return TypedResults.BadRequest(400, "Account with this email already exists");
-                return 400;
+                return TypedResults.BadRequest("Account with this email already exists");
             }
 
             if (!ValidatePassword(userModel.Password))
             {
-                //return BadRequest("Password must contain lowercase and uppercase latin letters and at least 1 digit and special symbol." +
-                //    " Password must not contain any spaces, tabs or newlines");
-                return 400;
+                return TypedResults.BadRequest("Password must contain lowercase and uppercase latin letters and at least 1 digit and special symbol. " +
+                    "Password must not contain any spaces, tabs or newlines");
             }
             else
             {
@@ -144,18 +134,20 @@ namespace shop_backend.Services
 
             if (!ConfirmPassword(encPassword, encConfirmation))
             {
-                //return BadRequest("The password confirmation does not match");
-                return 400;
+                return TypedResults.BadRequest("The password confirmation does not match");
             }
             else
             {
                 userModel.Password = encPassword;
                 _userRepo.InsertUser(userModel);
-                return 201;
+
+                string? locationHeader = urlHelper.Action("GetUserById", "User", new {id = userModel.Id});
+
+                return TypedResults.Created(locationHeader, UserMappers.FromUser(userModel));
             }
         }
 
-        public LogInResponceDto Authorize(LogInUserDto logInUserDto)
+        public Results<Ok<LogInResponceDto>, UnauthorizedHttpResult> Authorize(LogInUserDto logInUserDto)
         {
             string encPassword = string.Empty;
             string accessToken = string.Empty;
@@ -164,21 +156,34 @@ namespace shop_backend.Services
             HashPassword(logInUserDto.Password, out encPassword);
 
             List<User> registeredUsers = _userRepo.SelectUsers().ToList();
-            User currentUser = registeredUsers.Find(u => u.Password.Equals(encPassword) && u.Email == logInUserDto.Email);
+            User? currentUser = registeredUsers.Find(u => u.Password.Equals(encPassword) && u.Email == logInUserDto.Email);
 
             if (currentUser == null)
             {
-                return null;
+                return TypedResults.Unauthorized();
             }
             else
             {
                 _tokenService.CreateToken(currentUser, out accessToken, out refreshToken);
-                return new LogInResponceDto
-                {
-                    AccessToken = accessToken,
-                    RefreshToken = refreshToken
-                };
+                return TypedResults.Ok(
+                    new LogInResponceDto
+                    {
+                        AccessToken = accessToken,
+                        RefreshToken = refreshToken
+                    });
             }
+        }
+
+        public List<User> Find()
+        {
+            List<User> users = _userRepo.SelectUsers();
+            return users;
+        }
+
+        public User? FindById(int id)
+        {
+            User? user = _userRepo.SelectUserById(id);
+            return user;
         }
     }
 }

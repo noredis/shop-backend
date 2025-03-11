@@ -2,13 +2,13 @@
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.IdentityModel.Tokens;
+
 using shop_backend.Dtos.User;
 using shop_backend.Interfaces.Repository;
 using shop_backend.Interfaces.Service;
 using shop_backend.Models;
-using shop_backend.Repository;
 
 
 namespace shop_backend.Services
@@ -67,7 +67,7 @@ namespace shop_backend.Services
             return Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
         }
 
-        public LogInResponceDto RefreshAccessToken(string refreshToken)
+        public Results<Ok<LogInResponceDto>, UnauthorizedHttpResult> RefreshAccessToken(string refreshToken)
         {
             RefreshToken? token = _tokenRepo.FindRefreshToken(refreshToken);
 
@@ -77,15 +77,17 @@ namespace shop_backend.Services
             if (token != null)
             {
                 CreateToken(token.User, out newAccessToken, out newRefreshToken);
-                return new LogInResponceDto
-                {
-                    AccessToken = newAccessToken,
-                    RefreshToken = newRefreshToken
-                };
+                return TypedResults.Ok(
+                    new LogInResponceDto
+                    {
+                        AccessToken = newAccessToken,
+                        RefreshToken = newRefreshToken
+                    }
+                );
             }
             else
             {
-                return null;
+                return TypedResults.Unauthorized();
             }
         }
     }
