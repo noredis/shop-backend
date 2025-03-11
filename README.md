@@ -72,3 +72,14 @@
  - failure status code: 400
  - output headers: [Location]
  - deadline: 11.03.2025
+ - completed: 11.03.2025
+## Допилить CRUD для товаров
+ - PUT /api/v1/products/{id}
+ - GET /api/v1/products (список вообще всех товаров)
+ - GET /api/v1/products/{id}
+ - DELETE /api/v1/products/{id}
+ - PATCH /api/v1/products/{id}
+ - GET возвращает 200, остальные 204 и пустое тело
+ - валидация для редактирования, такая же, что для создания
+ - deadline: 17.03.2025
+ - редактировать и удалять можно только те товары, что добавил авторизованный пользователь
