@@ -53,5 +53,29 @@ namespace shop_backend.Services
                 return TypedResults.Created(urlHelper.Action());
             }
         }
+
+        public Results<Ok<Product>, NotFound<string>> FindProduct(int productId)
+        {
+            Product? product = _productRepo.SelectProduct(productId);
+
+            if (product == null)
+            {
+                return TypedResults.NotFound("The specified product does not exist");
+            }
+
+            return TypedResults.Ok(product);
+        }
+
+        public Results<Ok<List<Product>>, NotFound<string>> FindProducts()
+        {
+            List<Product>? products = _productRepo.SelectProducts();
+
+            if (products == null)
+            {
+                return TypedResults.NotFound("There are no products avalable in the shop");
+            }
+
+            return TypedResults.Ok(products);
+        }
     }
 }

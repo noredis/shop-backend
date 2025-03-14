@@ -32,6 +32,32 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "shop_backend.Controllers.ProductController",
+    "Method": "GetProducts",
+    "RelativePath": "api/v1/products",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "shop_backend.Controllers.ProductController",
+    "Method": "GetProduct",
+    "RelativePath": "api/v1/products/{productId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "shop_backend.Controllers.AuthController",
     "Method": "RefreshToken",
     "RelativePath": "api/v1/refresh",

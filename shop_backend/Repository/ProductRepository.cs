@@ -18,5 +18,15 @@ namespace shop_backend.Repository
             _context.Products.Add(product);
             _context.SaveChanges();
         }
+
+        public Product? SelectProduct(int productId)
+        {
+            return _context.Products.Find(productId);
+        }
+
+        public List<Product>? SelectProducts()
+        {
+            return _context.Products.ToList();
+        }
     }
 }

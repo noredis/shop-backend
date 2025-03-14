@@ -34,5 +34,23 @@ namespace shop_backend.Controllers
 
             return status;
         }
+
+        [Authorize]
+        [HttpGet]
+        [Route("products")]
+        public IResult GetProducts()
+        {
+            IResult status = _productService.FindProducts();
+            return status;
+        }
+
+        [Authorize]
+        [HttpGet]
+        [Route("products/{productId}")]
+        public IResult GetProduct([FromRoute] int productId)
+        {
+            IResult status = _productService.FindProduct(productId);
+            return status;
+        }
     }
 }
