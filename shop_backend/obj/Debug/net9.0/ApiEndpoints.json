@@ -58,6 +58,27 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "shop_backend.Controllers.ProductController",
+    "Method": "UpdateProduct",
+    "RelativePath": "api/v1/products/{productId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "productDto",
+        "Type": "shop_backend.Dtos.Product.UpdateProductDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "shop_backend.Controllers.AuthController",
     "Method": "RefreshToken",
     "RelativePath": "api/v1/refresh",

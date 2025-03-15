@@ -8,6 +8,7 @@ using SixLabors.ImageSharp;
 using shop_backend.Interfaces.Repository;
 using shop_backend.Interfaces.Service;
 using shop_backend.Models;
+using shop_backend.Dtos.Product;
 
 namespace shop_backend.Services
 {
@@ -76,6 +77,24 @@ namespace shop_backend.Services
             }
 
             return TypedResults.Ok(products);
+        }
+
+        public Results<NoContent, NotFound, BadRequest> EditProduct(int id, UpdateProductDto productDto)
+        {
+            Product? product = _productRepo.SelectProduct(id);
+
+            if(product == null)
+            {
+                return TypedResults.NotFound();
+            }
+
+            if (productDto.Price <= 0d)
+            {
+                return TypedResults.BadRequest();
+            }
+
+            _productRepo.UpdateProduct(product, productDto);
+            return TypedResults.NoContent();
         }
     }
 }

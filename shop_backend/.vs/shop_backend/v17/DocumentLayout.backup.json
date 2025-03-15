@@ -3,20 +3,28 @@
   "WorkspaceRootPath": "C:\\VSProjects\\shop-backend\\shop_backend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend.csproj|c:\\vsprojects\\shop-backend\\shop_backend\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend.csproj|solutionrelative:controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend.csproj|c:\\vsprojects\\shop-backend\\shop_backend\\services\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend.csproj|solutionrelative:services\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend.csproj|c:\\vsprojects\\shop-backend\\shop_backend\\interfaces\\service\\iproductservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend.csproj|solutionrelative:interfaces\\service\\iproductservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend.csproj|c:\\vsprojects\\shop-backend\\shop_backend\\dtos\\product\\updateproductdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend.csproj|solutionrelative:dtos\\product\\updateproductdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend.csproj|c:\\vsprojects\\shop-backend\\shop_backend\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend.csproj|c:\\vsprojects\\shop-backend\\shop_backend\\repository\\productrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend.csproj|solutionrelative:repository\\productrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend.csproj|c:\\vsprojects\\shop-backend\\shop_backend\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend.csproj|solutionrelative:controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend.csproj|c:\\vsprojects\\shop-backend\\shop_backend\\interfaces\\repository\\iproductrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend.csproj|solutionrelative:interfaces\\repository\\iproductrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend.csproj|c:\\vsprojects\\shop-backend\\shop_backend\\interfaces\\service\\iproductservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend.csproj|solutionrelative:interfaces\\service\\iproductservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,54 +38,80 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "UserController.cs",
-              "DocumentMoniker": "C:\\VSProjects\\shop-backend\\shop_backend\\Controllers\\UserController.cs",
-              "RelativeDocumentMoniker": "Controllers\\UserController.cs",
-              "ToolTip": "C:\\VSProjects\\shop-backend\\shop_backend\\Controllers\\UserController.cs",
-              "RelativeToolTip": "Controllers\\UserController.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAA1wAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-14T15:45:08.629Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "IProductService.cs",
               "DocumentMoniker": "C:\\VSProjects\\shop-backend\\shop_backend\\Interfaces\\Service\\IProductService.cs",
               "RelativeDocumentMoniker": "Interfaces\\Service\\IProductService.cs",
               "ToolTip": "C:\\VSProjects\\shop-backend\\shop_backend\\Interfaces\\Service\\IProductService.cs",
               "RelativeToolTip": "Interfaces\\Service\\IProductService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAkAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-14T15:40:14.491Z",
+              "WhenOpened": "2025-03-15T15:44:07.472Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ProductService.cs",
-              "DocumentMoniker": "C:\\VSProjects\\shop-backend\\shop_backend\\Services\\ProductService.cs",
-              "RelativeDocumentMoniker": "Services\\ProductService.cs",
-              "ToolTip": "C:\\VSProjects\\shop-backend\\shop_backend\\Services\\ProductService.cs",
-              "RelativeToolTip": "Services\\ProductService.cs",
-              "ViewState": "AgIAADgAAAAAAAAAAAA9wE4AAAAJAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "IProductRepository.cs",
+              "DocumentMoniker": "C:\\VSProjects\\shop-backend\\shop_backend\\Interfaces\\Repository\\IProductRepository.cs",
+              "RelativeDocumentMoniker": "Interfaces\\Repository\\IProductRepository.cs",
+              "ToolTip": "C:\\VSProjects\\shop-backend\\shop_backend\\Interfaces\\Repository\\IProductRepository.cs",
+              "RelativeToolTip": "Interfaces\\Repository\\IProductRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAABQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-14T15:39:24.687Z",
+              "WhenOpened": "2025-03-15T15:43:20.648Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ProductRepository.cs",
+              "DocumentMoniker": "C:\\VSProjects\\shop-backend\\shop_backend\\Repository\\ProductRepository.cs",
+              "RelativeDocumentMoniker": "Repository\\ProductRepository.cs",
+              "ToolTip": "C:\\VSProjects\\shop-backend\\shop_backend\\Repository\\ProductRepository.cs",
+              "RelativeToolTip": "Repository\\ProductRepository.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAowCgAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-15T15:36:15.936Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "ProductService.cs",
+              "DocumentMoniker": "C:\\VSProjects\\shop-backend\\shop_backend\\Services\\ProductService.cs",
+              "RelativeDocumentMoniker": "Services\\ProductService.cs",
+              "ToolTip": "C:\\VSProjects\\shop-backend\\shop_backend\\Services\\ProductService.cs",
+              "RelativeToolTip": "Services\\ProductService.cs",
+              "ViewState": "AgIAAEgAAAAAAAAAAAAIwFkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-15T15:32:08.435Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "ProductController.cs",
               "DocumentMoniker": "C:\\VSProjects\\shop-backend\\shop_backend\\Controllers\\ProductController.cs",
               "RelativeDocumentMoniker": "Controllers\\ProductController.cs",
               "ToolTip": "C:\\VSProjects\\shop-backend\\shop_backend\\Controllers\\ProductController.cs",
               "RelativeToolTip": "Controllers\\ProductController.cs",
-              "ViewState": "AgIAACQAAAAAAAAAAAAowCwAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAwwEMAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-14T15:36:21.403Z",
+              "WhenOpened": "2025-03-14T15:46:49.499Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UpdateProductDto.cs",
+              "DocumentMoniker": "C:\\VSProjects\\shop-backend\\shop_backend\\Dtos\\Product\\UpdateProductDto.cs",
+              "RelativeDocumentMoniker": "Dtos\\Product\\UpdateProductDto.cs",
+              "ToolTip": "C:\\VSProjects\\shop-backend\\shop_backend\\Dtos\\Product\\UpdateProductDto.cs",
+              "RelativeToolTip": "Dtos\\Product\\UpdateProductDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-15T15:31:06.027Z",
               "EditorCaption": ""
             }
           ]

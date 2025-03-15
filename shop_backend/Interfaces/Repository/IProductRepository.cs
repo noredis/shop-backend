@@ -1,4 +1,5 @@
-﻿using shop_backend.Models;
+﻿using shop_backend.Dtos.Product;
+using shop_backend.Models;
 
 namespace shop_backend.Interfaces.Repository
 {
@@ -7,5 +8,6 @@ namespace shop_backend.Interfaces.Repository
         public void InsertProduct(Product product);
         public List<Product>? SelectProducts();
         public Product? SelectProduct(int productId);
+        public void UpdateProduct(Product product, UpdateProductDto productDto);
     }
 }

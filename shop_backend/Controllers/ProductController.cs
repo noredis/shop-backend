@@ -52,5 +52,19 @@ namespace shop_backend.Controllers
             IResult status = _productService.FindProduct(productId);
             return status;
         }
+
+        [Authorize]
+        [HttpPut]
+        [Route("products/{productId}")]
+        public IResult UpdateProduct([FromRoute] int productId, [FromBody] UpdateProductDto productDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return TypedResults.BadRequest();
+            }
+
+            IResult status = _productService.EditProduct(productId, productDto);
+            return status;
+        }
     }
 }
