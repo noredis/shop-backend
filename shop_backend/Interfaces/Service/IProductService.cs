@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 using shop_backend.Dtos.Product;
@@ -12,5 +13,6 @@ namespace shop_backend.Interfaces.Service
         public Results<Ok<List<Product>>, NotFound<string>> FindProducts();
         public Results<Ok<Product>, NotFound<string>> FindProduct(int productId);
         public Results<NoContent, NotFound, BadRequest> EditProduct(int id, UpdateProductDto productDto);
+        public Results<NoContent, NotFound, BadRequest> EditProduct(int id, JsonPatchDocument productDocument);
     }
 }

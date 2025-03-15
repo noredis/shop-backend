@@ -1,4 +1,5 @@
-﻿using shop_backend.Data;
+﻿using Microsoft.AspNetCore.JsonPatch;
+using shop_backend.Data;
 using shop_backend.Dtos.Product;
 using shop_backend.Interfaces.Repository;
 using shop_backend.Models;
@@ -37,6 +38,13 @@ namespace shop_backend.Repository
             product.Image = productDto.Image;
             product.Description = productDto.Description;
             product.Price = productDto.Price;
+
+            _context.SaveChanges();
+        }
+
+        public void UpdateProduct(Product product, JsonPatchDocument productDocument)
+        {
+            productDocument.ApplyTo(product);
 
             _context.SaveChanges();
         }

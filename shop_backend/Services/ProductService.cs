@@ -9,6 +9,7 @@ using shop_backend.Interfaces.Repository;
 using shop_backend.Interfaces.Service;
 using shop_backend.Models;
 using shop_backend.Dtos.Product;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace shop_backend.Services
 {
@@ -83,7 +84,7 @@ namespace shop_backend.Services
         {
             Product? product = _productRepo.SelectProduct(id);
 
-            if(product == null)
+            if (product == null)
             {
                 return TypedResults.NotFound();
             }
@@ -94,6 +95,19 @@ namespace shop_backend.Services
             }
 
             _productRepo.UpdateProduct(product, productDto);
+            return TypedResults.NoContent();
+        }
+
+        public Results<NoContent, NotFound, BadRequest> EditProduct(int id, JsonPatchDocument productDocument)
+        {
+            Product? product = _productRepo.SelectProduct(id);
+
+            if (product == null)
+            {
+                return TypedResults.NotFound();
+            }
+
+            _productRepo.UpdateProduct(product, productDocument);
             return TypedResults.NoContent();
         }
     }

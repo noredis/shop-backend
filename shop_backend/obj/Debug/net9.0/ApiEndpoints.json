@@ -79,6 +79,27 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "shop_backend.Controllers.ProductController",
+    "Method": "PatchProduct",
+    "RelativePath": "api/v1/products/{productId}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "productDocument",
+        "Type": "Microsoft.AspNetCore.JsonPatch.Operations.Operation[]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "shop_backend.Controllers.AuthController",
     "Method": "RefreshToken",
     "RelativePath": "api/v1/refresh",

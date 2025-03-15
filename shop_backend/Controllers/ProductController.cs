@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 using shop_backend.Dtos.Product;
@@ -64,6 +65,15 @@ namespace shop_backend.Controllers
             }
 
             IResult status = _productService.EditProduct(productId, productDto);
+            return status;
+        }
+
+        [Authorize]
+        [HttpPatch]
+        [Route("products/{productId}")]
+        public IResult PatchProduct([FromRoute] int productId, [FromBody] JsonPatchDocument productDocument)
+        {
+            IResult status = _productService.EditProduct(productId, productDocument);
             return status;
         }
     }
