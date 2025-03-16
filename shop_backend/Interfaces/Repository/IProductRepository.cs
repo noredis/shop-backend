@@ -11,5 +11,6 @@ namespace shop_backend.Interfaces.Repository
         public Product? SelectProduct(int productId);
         public void UpdateProduct(Product product, UpdateProductDto productDto);
         public void UpdateProduct(Product product, JsonPatchDocument productDocument);
+        public void DeleteProduct(Product product);
     }
 }

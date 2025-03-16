@@ -76,5 +76,14 @@ namespace shop_backend.Controllers
             IResult status = _productService.EditProduct(productId, productDocument);
             return status;
         }
+
+        [Authorize]
+        [HttpDelete]
+        [Route("products/{productId}")]
+        public IResult DeleteProduct([FromRoute] int productId)
+        {
+            IResult status = _productService.RemoveProduct(productId);
+            return status;
+        }
     }
 }

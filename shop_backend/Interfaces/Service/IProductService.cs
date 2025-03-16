@@ -14,5 +14,6 @@ namespace shop_backend.Interfaces.Service
         public Results<Ok<Product>, NotFound<string>> FindProduct(int productId);
         public Results<NoContent, NotFound, BadRequest> EditProduct(int id, UpdateProductDto productDto);
         public Results<NoContent, NotFound, BadRequest> EditProduct(int id, JsonPatchDocument productDocument);
+        public Results<NoContent, NotFound> RemoveProduct(int id);
     }
 }

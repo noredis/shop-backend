@@ -110,5 +110,18 @@ namespace shop_backend.Services
             _productRepo.UpdateProduct(product, productDocument);
             return TypedResults.NoContent();
         }
+
+        public Results<NoContent, NotFound> RemoveProduct(int id)
+        {
+            Product? product = _productRepo.SelectProduct(id);
+
+            if (product == null)
+            {
+                return TypedResults.NotFound();
+            }
+
+            _productRepo.DeleteProduct(product);
+            return TypedResults.NoContent();
+        }
     }
 }
