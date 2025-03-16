@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.JsonPatch;
 
 using System.Buffers.Text;
 
@@ -9,7 +10,8 @@ using shop_backend.Interfaces.Repository;
 using shop_backend.Interfaces.Service;
 using shop_backend.Models;
 using shop_backend.Dtos.Product;
-using Microsoft.AspNetCore.JsonPatch;
+using shop_backend.Validation;
+using shop_backend.Validation.Product;
 
 namespace shop_backend.Services
 {
@@ -100,6 +102,13 @@ namespace shop_backend.Services
 
         public Results<NoContent, NotFound, BadRequest> EditProduct(int id, JsonPatchDocument productDocument)
         {
+            Result<JsonPatchDocument> validationResult = ProductValidator.ValidatePatch(productDocument);
+            
+            if (!validationResult.IsSuccess)
+            {
+                return TypedResults.BadRequest();
+            }
+
             Product? product = _productRepo.SelectProduct(id);
 
             if (product == null)
