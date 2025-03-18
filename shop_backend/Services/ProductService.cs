@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.JsonPatch;
 
 using System.Buffers.Text;
 
@@ -8,6 +9,9 @@ using SixLabors.ImageSharp;
 using shop_backend.Interfaces.Repository;
 using shop_backend.Interfaces.Service;
 using shop_backend.Models;
+using shop_backend.Dtos.Product;
+using shop_backend.Validation;
+using shop_backend.Validation.Product;
 
 namespace shop_backend.Services
 {
@@ -52,6 +56,81 @@ namespace shop_backend.Services
                 _productRepo.InsertProduct(product);
                 return TypedResults.Created(urlHelper.Action());
             }
+        }
+
+        public Results<Ok<Product>, NotFound<string>> FindProduct(int productId)
+        {
+            Product? product = _productRepo.SelectProduct(productId);
+
+            if (product == null)
+            {
+                return TypedResults.NotFound("The specified product does not exist");
+            }
+
+            return TypedResults.Ok(product);
+        }
+
+        public Results<Ok<List<Product>>, NotFound<string>> FindProducts()
+        {
+            List<Product>? products = _productRepo.SelectProducts();
+
+            if (products == null)
+            {
+                return TypedResults.NotFound("There are no products avalable in the shop");
+            }
+
+            return TypedResults.Ok(products);
+        }
+
+        public Results<NoContent, NotFound, BadRequest> EditProduct(int id, UpdateProductDto productDto)
+        {
+            Product? product = _productRepo.SelectProduct(id);
+
+            if (product == null)
+            {
+                return TypedResults.NotFound();
+            }
+
+            if (productDto.Price <= 0d)
+            {
+                return TypedResults.BadRequest();
+            }
+
+            _productRepo.UpdateProduct(product, productDto);
+            return TypedResults.NoContent();
+        }
+
+        public Results<NoContent, NotFound, BadRequest> EditProduct(int id, JsonPatchDocument productDocument)
+        {
+            Result<JsonPatchDocument> validationResult = ProductValidator.ValidatePatch(productDocument);
+            
+            if (!validationResult.IsSuccess)
+            {
+                return TypedResults.BadRequest();
+            }
+
+            Product? product = _productRepo.SelectProduct(id);
+
+            if (product == null)
+            {
+                return TypedResults.NotFound();
+            }
+
+            _productRepo.UpdateProduct(product, productDocument);
+            return TypedResults.NoContent();
+        }
+
+        public Results<NoContent, NotFound> RemoveProduct(int id)
+        {
+            Product? product = _productRepo.SelectProduct(id);
+
+            if (product == null)
+            {
+                return TypedResults.NotFound();
+            }
+
+            _productRepo.DeleteProduct(product);
+            return TypedResults.NoContent();
         }
     }
 }
