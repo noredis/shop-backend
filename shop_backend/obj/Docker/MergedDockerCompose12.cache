@@ -1,0 +1,70 @@
+name: dockercompose7908588346424506463
+services:
+  shop.database:
+    container_name: shop.database
+    environment:
+      POSTGRES_DB: shop
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER:postgres: null
+    image: postgres:latest
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 5432
+        published: "5432"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: C:\VSProjects\shop-backend\shop_backend\.containers\shop-db
+        target: /var/lib/postgresql/data
+        bind:
+          create_host_path: true
+  shop_backend:
+    build:
+      context: C:\VSProjects\shop-backend\shop_backend\shop_backend
+      dockerfile: Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTP_PORTS: "8080"
+      ASPNETCORE_HTTPS_PORTS: "8081"
+    image: shopbackend
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 8080
+        published: "8080"
+        protocol: tcp
+      - mode: ingress
+        target: 8081
+        published: "8081"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: C:\Users\visp0\AppData\Roaming/Microsoft/UserSecrets
+        target: /home/app/.microsoft/usersecrets
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Users\visp0\AppData\Roaming/Microsoft/UserSecrets
+        target: /root/.microsoft/usersecrets
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Users\visp0\AppData\Roaming/ASP.NET/Https
+        target: /home/app/.aspnet/https
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Users\visp0\AppData\Roaming/ASP.NET/Https
+        target: /root/.aspnet/https
+        read_only: true
+        bind:
+          create_host_path: true
+networks:
+  default:
+    name: dockercompose7908588346424506463_default

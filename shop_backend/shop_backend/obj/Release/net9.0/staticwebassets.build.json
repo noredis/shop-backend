@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "zFYzpRUZuvkUkoIfJ7zLIoM0bj94dhIj996ytUbI/JY=",
+  "Source": "shop_backend",
+  "BasePath": "_content/shop_backend",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

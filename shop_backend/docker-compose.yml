@@ -1,0 +1,21 @@
+services:
+  shop_backend:
+    image: ${DOCKER_REGISTRY-}shopbackend
+    build:
+      context: shop_backend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+      - "5001:5001"
+
+  shop.database:
+    image: postgres:17
+    container_name: shop.database
+    environment:
+      - POSTGRES_DB=shop
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./.containers/shop-db:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
