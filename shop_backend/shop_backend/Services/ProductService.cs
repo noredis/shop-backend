@@ -26,25 +26,28 @@ namespace shop_backend.Services
 
         public Results<Created, BadRequest<string>> Add(Product product, IUrlHelper urlHelper)
         {
-            if (product.Image != null)
+            if (product.Images != null)
             {
-                if (!Base64.IsValid(product.Image))
+                foreach (ProductImage byteImage in product.Images.ToList())
                 {
-                    return TypedResults.BadRequest("Image file is corrupted");
+                    if (!Base64.IsValid(byteImage.Path))
+                    {
+                        return TypedResults.BadRequest("Image file is corrupted");
+                    }
+
+                    byte[] imageData = Convert.FromBase64String(byteImage.Path);
+                    Image image = Image.Load(imageData);
+
+                    DateTime now = DateTime.UtcNow.AddHours(6);
+                    string currentDate = now.ToString("dd-MM-yyyy");
+                    string currentTime = now.ToString("HH-mm-ss");
+
+                    string imagePath = $"/home/downloads/shop-backend/image_{currentDate}_{currentTime}.png";
+
+                    image.Save(imagePath);
+
+                    product.Images.Add(new ProductImage {Path = imagePath});
                 }
-
-                byte[] imageData = Convert.FromBase64String(product.Image);
-                Image image = Image.Load(imageData);
-
-                DateTime now = DateTime.UtcNow.AddHours(6);
-                string currentDate = now.ToString("d");
-                string currentTime = now.ToString("HH-mm-ss");
-
-                string imagePath = @$"C:\VSProjects\Downloads\Shop-Backend\image_{currentDate}_{currentTime}.png";
-
-                image.Save(imagePath);
-
-                product.Image = imagePath;
             }
 
             if (product.Price <= 0d)

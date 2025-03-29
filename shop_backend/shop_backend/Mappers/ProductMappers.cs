@@ -11,7 +11,7 @@ namespace shop_backend.Mappers
             {
                 Name = productDto.Name,
                 Category = productDto.Category,
-                Image = productDto.Image,
+                Images = productDto.Images,
                 Description = productDto.Description,
                 Price = productDto.Price
             };
