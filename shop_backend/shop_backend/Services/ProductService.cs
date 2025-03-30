@@ -28,6 +28,9 @@ namespace shop_backend.Services
         {
             if (product.Images != null)
             {
+                List<ProductImage> images = new List<ProductImage>();
+                int imageCounter = 1;
+
                 foreach (ProductImage byteImage in product.Images.ToList())
                 {
                     if (!Base64.IsValid(byteImage.Path))
@@ -42,11 +45,19 @@ namespace shop_backend.Services
                     string currentDate = now.ToString("dd-MM-yyyy");
                     string currentTime = now.ToString("HH-mm-ss");
 
-                    string imagePath = $"/home/downloads/shop-backend/image_{currentDate}_{currentTime}.png";
+                    string imagePath = $"/home/downloads/shop-backend/image_{currentDate}_{currentTime}_#{imageCounter}.png";
+                    imageCounter++;
 
                     image.Save(imagePath);
 
-                    product.Images.Add(new ProductImage {Path = imagePath});
+                    images.Add(new ProductImage {Path = imagePath});
+                }
+
+                product.Images.Clear();
+
+                foreach (ProductImage image in images)
+                {
+                    product.Images.Add(image);
                 }
             }
 
