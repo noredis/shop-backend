@@ -89,6 +89,12 @@ namespace shop_backend
                 app.UseSwaggerUI();
             }
 
+            using (var scope = app.Services.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                context.Database.Migrate();
+            }
+
             //app.UseHttpsRedirection();
 
             app.UseAuthentication();

@@ -35,7 +35,7 @@ namespace shop_backend.Repository
         {
             product.Name = productDto.Name;
             product.Category = productDto.Category;
-            product.Image = productDto.Image;
+            product.Images = productDto.Images;
             product.Description = productDto.Description;
             product.Price = productDto.Price;
 

@@ -37,7 +37,7 @@ namespace shop_backend.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
-                    b.Property<string>("Image")
+                    b.Property<string>("Images")
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
