@@ -29,7 +29,7 @@ namespace shop_backend.Services
             return encPassword.Equals(encConfirmation);
         }
 
-        public void HashPassword(string password, out string encPassword)
+        public void HashLogInPassword(string password, out string encPassword)
         {
             MD5 md5 = MD5.Create();
 
@@ -46,7 +46,7 @@ namespace shop_backend.Services
             encPassword = sb.ToString();
         }
 
-        public void HashPassword(string password, string confirmation, out string encPassword, out string encConfirmation)
+        public void HashRegisterPassword(string password, string confirmation, out string encPassword, out string encConfirmation)
         {
             MD5 md5 = MD5.Create();
 
@@ -72,13 +72,6 @@ namespace shop_backend.Services
             }
 
             encConfirmation = sb.ToString();
-        }
-
-        public bool SearchForEmail(string email)
-        {
-            var user = _userRepo.SelectUsers().Where(u => u.Email == email).ToList();
-            bool emailFound = user.Exists(u => u.Email == email);
-            return emailFound;
         }
 
         public bool ValidatePassword(string password)
@@ -112,12 +105,12 @@ namespace shop_backend.Services
             return isValid;
         }
 
-        public Results<Created<UserResponce>, BadRequest<string>> Create(User userModel, string passwordConfirm, IUrlHelper urlHelper)
+        public Results<Created<UserResponce>, BadRequest<string>> RegisterUser(User userModel, string passwordConfirm, IUrlHelper urlHelper)
         {
             string encPassword = "";
             string encConfirmation = "";
 
-            if (SearchForEmail(userModel.Email))
+            if (_userRepo.FindUserByEmail(userModel.Email))
             {
                 return TypedResults.BadRequest("Account with this email already exists");
             }
@@ -129,7 +122,7 @@ namespace shop_backend.Services
             }
             else
             {
-                HashPassword(userModel.Password, passwordConfirm, out encPassword, out encConfirmation);
+                HashRegisterPassword(userModel.Password, passwordConfirm, out encPassword, out encConfirmation);
             }
 
             if (!ConfirmPassword(encPassword, encConfirmation))
@@ -147,13 +140,13 @@ namespace shop_backend.Services
             }
         }
 
-        public Results<Ok<LogInResponceDto>, UnauthorizedHttpResult> Authorize(LogInUserDto logInUserDto)
+        public Results<Ok<LogInResponceDto>, UnauthorizedHttpResult> AuthorizeUser(LogInUserDto logInUserDto)
         {
             string encPassword = string.Empty;
             string accessToken = string.Empty;
             string refreshToken = string.Empty;
 
-            HashPassword(logInUserDto.Password, out encPassword);
+            HashLogInPassword(logInUserDto.Password, out encPassword);
 
             List<User> registeredUsers = _userRepo.SelectUsers().ToList();
             User? currentUser = registeredUsers.Find(u => u.Password.Equals(encPassword) && u.Email == logInUserDto.Email);
@@ -174,13 +167,13 @@ namespace shop_backend.Services
             }
         }
 
-        public List<User> Find()
+        public List<User> FindUser()
         {
             List<User> users = _userRepo.SelectUsers();
             return users;
         }
 
-        public User? FindById(int id)
+        public User? FindUserById(int id)
         {
             User? user = _userRepo.SelectUserById(id);
             return user;

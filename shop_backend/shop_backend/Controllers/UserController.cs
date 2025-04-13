@@ -24,7 +24,7 @@ namespace shop_backend.Controllers
         [Route("users")]
         public IActionResult GetUsers()
         {
-            List<User> users = _userService.Find();
+            List<User> users = _userService.FindUser();
             return Ok(users);
         }
 
@@ -33,7 +33,7 @@ namespace shop_backend.Controllers
         [Route("user/{id}")]
         public IActionResult GetUserById([FromRoute] int id)
         {
-            var user = _userService.FindById(id);
+            var user = _userService.FindUserById(id);
             return Ok(user);
         }
 
@@ -49,7 +49,7 @@ namespace shop_backend.Controllers
             User userModel = userDto.RegisterDtoToUser();
             string passwordConfirm = userDto.PasswordConfirm;
 
-            IResult status = _userService.Create(userModel, passwordConfirm, Url);
+            IResult status = _userService.RegisterUser(userModel, passwordConfirm, Url);
 
             return status;
         }

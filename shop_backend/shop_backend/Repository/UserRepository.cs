@@ -28,5 +28,19 @@ namespace shop_backend.Repository
         {
             return _context.User.ToList();
         }
+
+        public bool FindUserByEmail(string email)
+        {
+            var user = _context.User.Where(u => u.Email == email);
+
+            if (user.Count() > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

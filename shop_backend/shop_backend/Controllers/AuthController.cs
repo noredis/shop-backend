@@ -28,7 +28,7 @@ namespace shop_backend.Controllers
                 return TypedResults.BadRequest(ModelState);
             }
 
-            IResult status = _userService.Authorize(logInUserDto);
+            IResult status = _userService.AuthorizeUser(logInUserDto);
 
             return status;
         }

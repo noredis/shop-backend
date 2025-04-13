@@ -7,5 +7,6 @@ namespace shop_backend.Interfaces.Repository
         public List<User> SelectUsers();
         public User SelectUserById(int id);
         public void InsertUser(User user);
+        public bool FindUserByEmail(string email);
     }
 }
