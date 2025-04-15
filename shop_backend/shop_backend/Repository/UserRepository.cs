@@ -34,13 +34,9 @@ namespace shop_backend.Repository
             var user = _context.User.Where(u => u.Email == email);
 
             if (user.Count() > 0)
-            {
                 return true;
-            }
             else
-            {
                 return false;
-            }
         }
     }
 }

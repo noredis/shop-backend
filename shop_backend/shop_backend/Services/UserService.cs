@@ -157,7 +157,7 @@ namespace shop_backend.Services
             }
             else
             {
-                _tokenService.CreateToken(currentUser, out accessToken, out refreshToken);
+                _tokenService.GenerateToken(currentUser, out accessToken, out refreshToken);
                 return TypedResults.Ok(
                     new LogInResponceDto
                     {

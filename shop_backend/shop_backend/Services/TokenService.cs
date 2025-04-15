@@ -9,6 +9,7 @@ using shop_backend.Dtos.User;
 using shop_backend.Interfaces.Repository;
 using shop_backend.Interfaces.Service;
 using shop_backend.Models;
+using shop_backend.Validation;
 
 
 namespace shop_backend.Services
@@ -27,7 +28,7 @@ namespace shop_backend.Services
             _tokenRepo = tokenRepo;
         }
 
-        public void CreateToken(User user, out string accessToken, out string refreshToken)
+        public void GenerateToken(User user, out string accessToken, out string refreshToken)
         {
             var claims = new List<Claim>
             {
@@ -67,7 +68,7 @@ namespace shop_backend.Services
             return Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
         }
 
-        public Results<Ok<LogInResponceDto>, UnauthorizedHttpResult> RefreshAccessToken(string refreshToken)
+        public Result<LogInResponceDto> RefreshAccessToken(string refreshToken)
         {
             RefreshToken? token = _tokenRepo.FindRefreshToken(refreshToken);
 
@@ -76,8 +77,8 @@ namespace shop_backend.Services
 
             if (token != null)
             {
-                CreateToken(token.User, out newAccessToken, out newRefreshToken);
-                return TypedResults.Ok(
+                GenerateToken(token.User, out newAccessToken, out newRefreshToken);
+                return Result<LogInResponceDto>.Success(
                     new LogInResponceDto
                     {
                         AccessToken = newAccessToken,
@@ -87,8 +88,32 @@ namespace shop_backend.Services
             }
             else
             {
-                return TypedResults.Unauthorized();
+                return Result<LogInResponceDto>.Failure(new Error("Login or password are incorrect"));
             }
         }
+
+        //public Results<Ok<LogInResponceDto>, UnauthorizedHttpResult> RefreshAccessToken(string refreshToken)
+        //{
+        //    RefreshToken? token = _tokenRepo.FindRefreshToken(refreshToken);
+
+        //    string newAccessToken = String.Empty;
+        //    string newRefreshToken = String.Empty;
+
+        //    if (token != null)
+        //    {
+        //        GenerateToken(token.User, out newAccessToken, out newRefreshToken);
+        //        return TypedResults.Ok(
+        //            new LogInResponceDto
+        //            {
+        //                AccessToken = newAccessToken,
+        //                RefreshToken = newRefreshToken
+        //            }
+        //        );
+        //    }
+        //    else
+        //    {
+        //        return TypedResults.Unauthorized();
+        //    }
+        //}
     }
 }

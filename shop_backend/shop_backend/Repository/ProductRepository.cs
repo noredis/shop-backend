@@ -31,7 +31,7 @@ namespace shop_backend.Repository
             return _context.Products.ToList();
         }
 
-        public void UpdateProduct(Product product, UpdateProductDto productDto)
+        public void UpdateProduct(Product product, PutProductDto productDto)
         {
             product.Name = productDto.Name;
             product.Category = productDto.Category;

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.JsonPatch;
 
 using System.Buffers.Text;
@@ -24,7 +23,7 @@ namespace shop_backend.Services
             _productRepo = productRepo;
         }
 
-        public Results<Created, BadRequest<string>> Add(Product product, IUrlHelper urlHelper)
+        public Result<string> AddProduct(Product product, IUrlHelper urlHelper)
         {
             if (product.Images != null)
             {
@@ -35,7 +34,7 @@ namespace shop_backend.Services
                 {
                     if (!Base64.IsValid(byteImage.Path))
                     {
-                        return TypedResults.BadRequest("Image file is corrupted");
+                        return Result<string>.Failure(new Error("Image file is corrupted"));
                     }
 
                     byte[] imageData = Convert.FromBase64String(byteImage.Path);
@@ -50,7 +49,7 @@ namespace shop_backend.Services
 
                     image.Save(imagePath);
 
-                    images.Add(new ProductImage {Path = imagePath});
+                    images.Add(new ProductImage { Path = imagePath });
                 }
 
                 product.Images.Clear();
@@ -63,88 +62,89 @@ namespace shop_backend.Services
 
             if (product.Price <= 0d)
             {
-                return TypedResults.BadRequest("Product price must be greater than zero");
+                return Result<string>.Failure(new Error("Product price must be greater than zero"));
             }
             else
             {
                 _productRepo.InsertProduct(product);
-                return TypedResults.Created(urlHelper.Action());
+
+                return Result<string>.Success(urlHelper.Action());
             }
         }
 
-        public Results<Ok<Product>, NotFound<string>> FindProduct(int productId)
+        public Result<Product?> GetProductById(int productId)
         {
             Product? product = _productRepo.SelectProduct(productId);
 
             if (product == null)
             {
-                return TypedResults.NotFound("The specified product does not exist");
+                return Result<Product?>.Failure(new Error("Product not found"));
             }
 
-            return TypedResults.Ok(product);
+            return Result<Product?>.Success(product);
         }
 
-        public Results<Ok<List<Product>>, NotFound<string>> FindProducts()
+        public Result<List<Product>?> GetProducts()
         {
             List<Product>? products = _productRepo.SelectProducts();
 
             if (products == null)
             {
-                return TypedResults.NotFound("There are no products avalable in the shop");
+                return Result<List<Product>?>.Failure(new Error("There are no products avalable in the shop"));
             }
-
-            return TypedResults.Ok(products);
+            else
+            {
+                return Result<List<Product>?>.Success(products);
+            }
         }
 
-        public Results<NoContent, NotFound, BadRequest> EditProduct(int id, UpdateProductDto productDto)
+        public Result<string> PutProduct(int id, PutProductDto productDto)
         {
             Product? product = _productRepo.SelectProduct(id);
 
             if (product == null)
             {
-                return TypedResults.NotFound();
+                return Result<string>.Failure(new Error("Product not found", 404));
             }
 
             if (productDto.Price <= 0d)
             {
-                return TypedResults.BadRequest();
+                return Result<string>.Failure(new Error("Product price must be greater than zero", 400));
             }
 
             _productRepo.UpdateProduct(product, productDto);
-            return TypedResults.NoContent();
+            return Result<string>.Success(String.Empty);
         }
-
-        public Results<NoContent, NotFound, BadRequest> EditProduct(int id, JsonPatchDocument productDocument)
+        public Result<string> PatchProduct(int id, JsonPatchDocument productDocument)
         {
             Result<JsonPatchDocument> validationResult = ProductValidator.ValidatePatch(productDocument);
-            
+
             if (!validationResult.IsSuccess)
             {
-                return TypedResults.BadRequest();
+                return Result<string>.Failure(new Error(validationResult.Error.Message, 400));
             }
 
             Product? product = _productRepo.SelectProduct(id);
 
             if (product == null)
             {
-                return TypedResults.NotFound();
+                return Result<string>.Failure(new Error("Product not found", 404));
             }
 
             _productRepo.UpdateProduct(product, productDocument);
-            return TypedResults.NoContent();
+            return Result<string>.Success(String.Empty);
         }
-
-        public Results<NoContent, NotFound> RemoveProduct(int id)
+        public Result<string> DeleteProduct(int id)
         {
             Product? product = _productRepo.SelectProduct(id);
 
             if (product == null)
             {
-                return TypedResults.NotFound();
+                return Result<string>.Failure(new Error("Product not found"));
             }
 
             _productRepo.DeleteProduct(product);
-            return TypedResults.NoContent();
+            return Result<string>.Success(String.Empty);
         }
     }
 }

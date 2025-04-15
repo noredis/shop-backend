@@ -3,20 +3,16 @@
   "WorkspaceRootPath": "C:\\VSProjects\\shop-backend\\shop_backend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend\\shop_backend.csproj|c:\\vsprojects\\shop-backend\\shop_backend\\shop_backend\\repository\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend\\shop_backend.csproj|solutionrelative:shop_backend\\repository\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend\\shop_backend.csproj|c:\\vsprojects\\shop-backend\\shop_backend\\shop_backend\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend\\shop_backend.csproj|solutionrelative:shop_backend\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend\\shop_backend.csproj|c:\\vsprojects\\shop-backend\\shop_backend\\shop_backend\\interfaces\\repository\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend\\shop_backend.csproj|solutionrelative:shop_backend\\interfaces\\repository\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend\\shop_backend.csproj|c:\\vsprojects\\shop-backend\\shop_backend\\shop_backend\\interfaces\\service\\itokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend\\shop_backend.csproj|solutionrelative:shop_backend\\interfaces\\service\\itokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend\\shop_backend.csproj|c:\\vsprojects\\shop-backend\\shop_backend\\shop_backend\\interfaces\\service\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend\\shop_backend.csproj|solutionrelative:shop_backend\\interfaces\\service\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend\\shop_backend.csproj|c:\\vsprojects\\shop-backend\\shop_backend\\shop_backend\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend\\shop_backend.csproj|solutionrelative:shop_backend\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend\\shop_backend.csproj|c:\\vsprojects\\shop-backend\\shop_backend\\shop_backend\\services\\tokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend\\shop_backend.csproj|solutionrelative:shop_backend\\services\\tokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -31,53 +27,40 @@
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "IUserService.cs",
-              "DocumentMoniker": "C:\\VSProjects\\shop-backend\\shop_backend\\shop_backend\\Interfaces\\Service\\IUserService.cs",
-              "RelativeDocumentMoniker": "shop_backend\\Interfaces\\Service\\IUserService.cs",
-              "ToolTip": "C:\\VSProjects\\shop-backend\\shop_backend\\shop_backend\\Interfaces\\Service\\IUserService.cs",
-              "RelativeToolTip": "shop_backend\\Interfaces\\Service\\IUserService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAALAAAAAAAAAA==",
+              "Title": "TokenService.cs",
+              "DocumentMoniker": "C:\\VSProjects\\shop-backend\\shop_backend\\shop_backend\\Services\\TokenService.cs",
+              "RelativeDocumentMoniker": "shop_backend\\Services\\TokenService.cs",
+              "ToolTip": "C:\\VSProjects\\shop-backend\\shop_backend\\shop_backend\\Services\\TokenService.cs",
+              "RelativeToolTip": "shop_backend\\Services\\TokenService.cs",
+              "ViewState": "AgIAAEAAAAAAAAAAAAAiwEkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-13T16:00:03.395Z",
+              "WhenOpened": "2025-04-15T16:47:18.941Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "IUserRepository.cs",
-              "DocumentMoniker": "C:\\VSProjects\\shop-backend\\shop_backend\\shop_backend\\Interfaces\\Repository\\IUserRepository.cs",
-              "RelativeDocumentMoniker": "shop_backend\\Interfaces\\Repository\\IUserRepository.cs",
-              "ToolTip": "C:\\VSProjects\\shop-backend\\shop_backend\\shop_backend\\Interfaces\\Repository\\IUserRepository.cs",
-              "RelativeToolTip": "shop_backend\\Interfaces\\Repository\\IUserRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAcAAAAAAAAAA==",
+              "Title": "ITokenService.cs",
+              "DocumentMoniker": "C:\\VSProjects\\shop-backend\\shop_backend\\shop_backend\\Interfaces\\Service\\ITokenService.cs",
+              "RelativeDocumentMoniker": "shop_backend\\Interfaces\\Service\\ITokenService.cs",
+              "ToolTip": "C:\\VSProjects\\shop-backend\\shop_backend\\shop_backend\\Interfaces\\Service\\ITokenService.cs",
+              "RelativeToolTip": "shop_backend\\Interfaces\\Service\\ITokenService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-13T15:56:28.695Z",
+              "WhenOpened": "2025-04-15T16:46:57.067Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "UserRepository.cs",
-              "DocumentMoniker": "C:\\VSProjects\\shop-backend\\shop_backend\\shop_backend\\Repository\\UserRepository.cs",
-              "RelativeDocumentMoniker": "shop_backend\\Repository\\UserRepository.cs",
-              "ToolTip": "C:\\VSProjects\\shop-backend\\shop_backend\\shop_backend\\Repository\\UserRepository.cs",
-              "RelativeToolTip": "shop_backend\\Repository\\UserRepository.cs",
-              "ViewState": "AgIAABcAAAAAAAAAAAAwwCIAAAAAAAAAAAAAAA==",
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\VSProjects\\shop-backend\\shop_backend\\shop_backend\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "shop_backend\\Controllers\\AuthController.cs",
+              "ToolTip": "C:\\VSProjects\\shop-backend\\shop_backend\\shop_backend\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "shop_backend\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAgwDMAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-13T15:39:15.777Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "UserService.cs",
-              "DocumentMoniker": "C:\\VSProjects\\shop-backend\\shop_backend\\shop_backend\\Services\\UserService.cs",
-              "RelativeDocumentMoniker": "shop_backend\\Services\\UserService.cs",
-              "ToolTip": "C:\\VSProjects\\shop-backend\\shop_backend\\shop_backend\\Services\\UserService.cs",
-              "RelativeToolTip": "shop_backend\\Services\\UserService.cs",
-              "ViewState": "AgIAAHAAAAAAAAAAAAAcwE0AAAALAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-13T15:35:41.521Z",
+              "WhenOpened": "2025-04-15T16:46:44.162Z",
               "EditorCaption": ""
             }
           ]
