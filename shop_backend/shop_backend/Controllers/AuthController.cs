@@ -29,9 +29,16 @@ namespace shop_backend.Controllers
                 return TypedResults.BadRequest(ModelState);
             }
 
-            IResult status = _userService.AuthorizeUser(logInUserDto);
-
-            return status;
+            Result<LogInResponceDto> requestResult = _userService.AuthorizeUser(logInUserDto);
+            
+            if (requestResult.IsSuccess)
+            {
+                return TypedResults.Ok(requestResult.Value);
+            }
+            else
+            {
+                return TypedResults.Unauthorized();
+            }
         }
 
         [HttpPost]

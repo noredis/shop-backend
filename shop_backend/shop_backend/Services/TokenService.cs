@@ -57,7 +57,7 @@ namespace shop_backend.Services
                 Token = GenerateRefreshToken()
             };
 
-            _tokenRepo.InsertRefreshToken(_refreshToken);
+            _tokenRepo.AddRefreshToken(_refreshToken);
 
             accessToken = tokenHandler.WriteToken(token);
             refreshToken = _refreshToken.Token;

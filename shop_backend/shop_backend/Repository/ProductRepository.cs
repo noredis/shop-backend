@@ -15,18 +15,18 @@ namespace shop_backend.Repository
             _context = context;
         }
 
-        public void InsertProduct(Product product)
+        public void AddProduct(Product product)
         {
             _context.Products.Add(product);
             _context.SaveChanges();
         }
 
-        public Product? SelectProduct(int productId)
+        public Product? GetProduct(int productId)
         {
             return _context.Products.Find(productId);
         }
 
-        public List<Product>? SelectProducts()
+        public List<Product>? GetProducts()
         {
             return _context.Products.ToList();
         }
@@ -42,7 +42,7 @@ namespace shop_backend.Repository
             _context.SaveChanges();
         }
 
-        public void UpdateProduct(Product product, JsonPatchDocument productDocument)
+        public void UpdateProductPartially(Product product, JsonPatchDocument productDocument)
         {
             productDocument.ApplyTo(product);
 

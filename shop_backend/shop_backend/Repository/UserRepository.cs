@@ -13,18 +13,18 @@ namespace shop_backend.Repository
             _context = context;
         }
 
-        public void InsertUser(User user)
+        public void AddUser(User user)
         {
             _context.User.Add(user);
             _context.SaveChanges();
         }
 
-        public User SelectUserById(int id)
+        public User FindUserById(int id)
         {
             return _context.User.Find(id);
         }
 
-        public List<User> SelectUsers()
+        public List<User> GetUsers()
         {
             return _context.User.ToList();
         }

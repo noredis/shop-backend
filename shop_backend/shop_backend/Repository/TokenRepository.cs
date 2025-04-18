@@ -15,7 +15,7 @@ namespace shop_backend.Repository
             _context = context;
         }
 
-        public void InsertRefreshToken(RefreshToken refreshToken)
+        public void AddRefreshToken(RefreshToken refreshToken)
         {
             _context.RefreshTokens.Add(refreshToken);
             _context.SaveChanges();

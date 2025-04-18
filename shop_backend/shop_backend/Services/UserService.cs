@@ -6,6 +6,7 @@ using shop_backend.Interfaces.Repository;
 using shop_backend.Interfaces.Service;
 using shop_backend.Mappers;
 using shop_backend.Models;
+using shop_backend.Validation;
 
 using System.Security.Cryptography;
 using System.Text;
@@ -105,20 +106,24 @@ namespace shop_backend.Services
             return isValid;
         }
 
-        public Results<Created<UserResponce>, BadRequest<string>> RegisterUser(User userModel, string passwordConfirm, IUrlHelper urlHelper)
+        public Result<UserResponce> RegisterUser(User userModel, string passwordConfirm, IUrlHelper urlHelper)
         {
             string encPassword = "";
             string encConfirmation = "";
 
             if (_userRepo.FindUserByEmail(userModel.Email))
             {
-                return TypedResults.BadRequest("Account with this email already exists");
+                return Result<UserResponce>.Failure(new Error("Account with this email already exists", 400));
             }
 
             if (!ValidatePassword(userModel.Password))
             {
-                return TypedResults.BadRequest("Password must contain lowercase and uppercase latin letters and at least 1 digit and special symbol. " +
-                    "Password must not contain any spaces, tabs or newlines");
+                return Result<UserResponce>.Failure(new Error(
+                    "Password must contain lowercase and uppercase latin letters and at least 1 digit and special symbol. " +
+                    "Password must not contain any spaces, tabs or newlines",
+                    400)
+                );
+
             }
             else
             {
@@ -127,20 +132,19 @@ namespace shop_backend.Services
 
             if (!ConfirmPassword(encPassword, encConfirmation))
             {
-                return TypedResults.BadRequest("The password confirmation does not match");
+                return Result<UserResponce>.Failure(new Error("The password confirmation does not match", 400));
             }
             else
             {
                 userModel.Password = encPassword;
-                _userRepo.InsertUser(userModel);
+                _userRepo.AddUser(userModel);
 
-                string? locationHeader = urlHelper.Action("GetUserById", "User", new {id = userModel.Id});
+                string? locationHeader = urlHelper.Action("GetUserById", "User", new { id = userModel.Id });
 
-                return TypedResults.Created(locationHeader, UserMappers.FromUser(userModel));
+                return Result<UserResponce>.Success(UserMappers.FromUser(userModel), locationHeader);
             }
         }
-
-        public Results<Ok<LogInResponceDto>, UnauthorizedHttpResult> AuthorizeUser(LogInUserDto logInUserDto)
+        public Result<LogInResponceDto> AuthorizeUser(LogInUserDto logInUserDto)
         {
             string encPassword = string.Empty;
             string accessToken = string.Empty;
@@ -148,35 +152,52 @@ namespace shop_backend.Services
 
             HashLogInPassword(logInUserDto.Password, out encPassword);
 
-            List<User> registeredUsers = _userRepo.SelectUsers().ToList();
+            List<User> registeredUsers = _userRepo.GetUsers().ToList();
             User? currentUser = registeredUsers.Find(u => u.Password.Equals(encPassword) && u.Email == logInUserDto.Email);
 
             if (currentUser == null)
             {
-                return TypedResults.Unauthorized();
+                return Result<LogInResponceDto>.Failure(new Error(String.Empty, 401));
             }
             else
             {
                 _tokenService.GenerateToken(currentUser, out accessToken, out refreshToken);
-                return TypedResults.Ok(
+                return Result<LogInResponceDto>.Success(
                     new LogInResponceDto
                     {
                         AccessToken = accessToken,
                         RefreshToken = refreshToken
-                    });
+                    }
+                );
             }
         }
 
-        public List<User> FindUser()
+        public Result<List<User>> GetUsers()
         {
-            List<User> users = _userRepo.SelectUsers();
-            return users;
+            List<User> users = _userRepo.GetUsers();
+            
+            if (users.Count() < 0)
+            {
+                return Result<List<User>>.Failure(new Error("There are no registered users", 404));
+            }
+            else
+            {
+                return Result<List<User>>.Success(users);
+            }
         }
 
-        public User? FindUserById(int id)
+        public Result<User?> FindUserById(int id)
         {
-            User? user = _userRepo.SelectUserById(id);
-            return user;
+            User? user = _userRepo.FindUserById(id);
+
+            if (user == null)
+            {
+                return Result<User?>.Failure(new Error("The user does not exist", 404));
+            }
+            else
+            {
+                return Result<User?>.Success(user);
+            }
         }
     }
 }

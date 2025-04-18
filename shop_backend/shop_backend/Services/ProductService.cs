@@ -66,7 +66,7 @@ namespace shop_backend.Services
             }
             else
             {
-                _productRepo.InsertProduct(product);
+                _productRepo.AddProduct(product);
 
                 return Result<string>.Success(urlHelper.Action());
             }
@@ -74,7 +74,7 @@ namespace shop_backend.Services
 
         public Result<Product?> GetProductById(int productId)
         {
-            Product? product = _productRepo.SelectProduct(productId);
+            Product? product = _productRepo.GetProduct(productId);
 
             if (product == null)
             {
@@ -86,7 +86,7 @@ namespace shop_backend.Services
 
         public Result<List<Product>?> GetProducts()
         {
-            List<Product>? products = _productRepo.SelectProducts();
+            List<Product>? products = _productRepo.GetProducts();
 
             if (products == null)
             {
@@ -100,7 +100,7 @@ namespace shop_backend.Services
 
         public Result<string> PutProduct(int id, PutProductDto productDto)
         {
-            Product? product = _productRepo.SelectProduct(id);
+            Product? product = _productRepo.GetProduct(id);
 
             if (product == null)
             {
@@ -124,19 +124,19 @@ namespace shop_backend.Services
                 return Result<string>.Failure(new Error(validationResult.Error.Message, 400));
             }
 
-            Product? product = _productRepo.SelectProduct(id);
+            Product? product = _productRepo.GetProduct(id);
 
             if (product == null)
             {
                 return Result<string>.Failure(new Error("Product not found", 404));
             }
 
-            _productRepo.UpdateProduct(product, productDocument);
+            _productRepo.UpdateProductPartially(product, productDocument);
             return Result<string>.Success(String.Empty);
         }
         public Result<string> DeleteProduct(int id)
         {
-            Product? product = _productRepo.SelectProduct(id);
+            Product? product = _productRepo.GetProduct(id);
 
             if (product == null)
             {
