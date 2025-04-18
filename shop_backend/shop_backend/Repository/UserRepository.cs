@@ -29,6 +29,22 @@ namespace shop_backend.Repository
             return _context.User.ToList();
         }
 
+        public void FindUserBySignInCredentials(string email, string password, out bool result, out User? user)
+        {
+            List<User> users = _context.User.Where(u => u.Email == email && u.Password == password).ToList();
+                
+            if (users.Count() > 0)
+            {
+                result = true;
+                user = users[0];
+            }
+            else
+            {
+                result = false;
+                user = null;
+            }
+        }
+
         public bool FindUserByEmail(string email)
         {
             var user = _context.User.Where(u => u.Email == email);

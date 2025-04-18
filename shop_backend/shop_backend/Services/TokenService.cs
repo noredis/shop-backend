@@ -91,29 +91,5 @@ namespace shop_backend.Services
                 return Result<LogInResponceDto>.Failure(new Error("Login or password are incorrect"));
             }
         }
-
-        //public Results<Ok<LogInResponceDto>, UnauthorizedHttpResult> RefreshAccessToken(string refreshToken)
-        //{
-        //    RefreshToken? token = _tokenRepo.FindRefreshToken(refreshToken);
-
-        //    string newAccessToken = String.Empty;
-        //    string newRefreshToken = String.Empty;
-
-        //    if (token != null)
-        //    {
-        //        GenerateToken(token.User, out newAccessToken, out newRefreshToken);
-        //        return TypedResults.Ok(
-        //            new LogInResponceDto
-        //            {
-        //                AccessToken = newAccessToken,
-        //                RefreshToken = newRefreshToken
-        //            }
-        //        );
-        //    }
-        //    else
-        //    {
-        //        return TypedResults.Unauthorized();
-        //    }
-        //}
     }
 }

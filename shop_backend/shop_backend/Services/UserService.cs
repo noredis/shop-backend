@@ -152,10 +152,12 @@ namespace shop_backend.Services
 
             HashLogInPassword(logInUserDto.Password, out encPassword);
 
-            List<User> registeredUsers = _userRepo.GetUsers().ToList();
-            User? currentUser = registeredUsers.Find(u => u.Password.Equals(encPassword) && u.Email == logInUserDto.Email);
+            bool isFound;
+            User? currentUser;
 
-            if (currentUser == null)
+            _userRepo.FindUserBySignInCredentials(logInUserDto.Email, encPassword, out isFound, out currentUser);
+
+            if (!isFound)
             {
                 return Result<LogInResponceDto>.Failure(new Error(String.Empty, 401));
             }

@@ -8,5 +8,6 @@ namespace shop_backend.Interfaces.Repository
         public User FindUserById(int id);
         public void AddUser(User user);
         public bool FindUserByEmail(string email);
+        public void FindUserBySignInCredentials(string email, string password, out bool result, out User? user);
     }
 }
