@@ -2,7 +2,7 @@
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using Microsoft.AspNetCore.Http.HttpResults;
+
 using Microsoft.IdentityModel.Tokens;
 
 using shop_backend.Dtos.User;
@@ -18,6 +18,7 @@ namespace shop_backend.Services
     {
         private readonly IConfiguration _config;
         private readonly SymmetricSecurityKey _key;
+
         private readonly ITokenRepository _tokenRepo;
 
         public TokenService(IConfiguration config, ITokenRepository tokenRepo)
@@ -28,7 +29,7 @@ namespace shop_backend.Services
             _tokenRepo = tokenRepo;
         }
 
-        public void GenerateToken(User user, out string accessToken, out string refreshToken)
+        private void RegenerateTokens(User user, out string accessToken, out string refreshToken)
         {
             var claims = new List<Claim>
             {
@@ -63,7 +64,7 @@ namespace shop_backend.Services
             refreshToken = _refreshToken.Token;
         }
 
-        private string GenerateRefreshToken()
+        public string GenerateRefreshToken()
         {
             return Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
         }
@@ -77,7 +78,7 @@ namespace shop_backend.Services
 
             if (token != null)
             {
-                GenerateToken(token.User, out newAccessToken, out newRefreshToken);
+                RegenerateTokens(token.User, out newAccessToken, out newRefreshToken);
                 return Result<LogInResponceDto>.Success(
                     new LogInResponceDto
                     {

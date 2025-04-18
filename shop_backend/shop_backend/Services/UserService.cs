@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 using shop_backend.Dtos.User;
 using shop_backend.Interfaces.Repository;
@@ -8,6 +8,8 @@ using shop_backend.Mappers;
 using shop_backend.Models;
 using shop_backend.Validation;
 
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -17,12 +19,21 @@ namespace shop_backend.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepo;
+        private readonly ITokenRepository _tokenRepo;
+
         private readonly ITokenService _tokenService;
 
-        public UserService(IUserRepository userRepo, ITokenService tokenService)
+        private readonly IConfiguration _config;
+        private readonly SymmetricSecurityKey _key;
+
+        public UserService(IUserRepository userRepo, ITokenService tokenService, ITokenRepository tokenRepo, IConfiguration config)
         {
+            _config = config;
+            _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWT:SigningKey"]));
+
             _userRepo = userRepo;
             _tokenService = tokenService;
+            _tokenRepo = tokenRepo;
         }
 
         public bool ConfirmPassword(string encPassword, string encConfirmation)
@@ -106,6 +117,41 @@ namespace shop_backend.Services
             return isValid;
         }
 
+        public void GenerateToken(User user, out string accessToken, out string refreshToken)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                new Claim(JwtRegisteredClaimNames.Name, user.FullName)
+            };
+
+            var credentials = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
+
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.Now.AddHours(24),
+                SigningCredentials = credentials,
+                Issuer = _config["JWT:Issuer"],
+                Audience = _config["JWT:Audience"]
+            };
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+
+            RefreshToken _refreshToken = new RefreshToken
+            {
+                UserID = user.Id,
+                Token = _tokenService.GenerateRefreshToken()
+            };
+
+            _tokenRepo.AddRefreshToken(_refreshToken);
+
+            accessToken = tokenHandler.WriteToken(token);
+            refreshToken = _refreshToken.Token;
+        }
+
         public Result<UserResponce> RegisterUser(User userModel, string passwordConfirm, IUrlHelper urlHelper)
         {
             string encPassword = "";
@@ -163,7 +209,7 @@ namespace shop_backend.Services
             }
             else
             {
-                _tokenService.GenerateToken(currentUser, out accessToken, out refreshToken);
+                GenerateToken(currentUser, out accessToken, out refreshToken);
                 return Result<LogInResponceDto>.Success(
                     new LogInResponceDto
                     {
