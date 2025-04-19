@@ -9,7 +9,7 @@ namespace shop_backend.Data
     {
         public ApplicationDbContext(DbContextOptions dbContextOptions) : base(dbContextOptions)
         {
-            Database.Migrate();
+            Database.EnsureCreated();
         }
 
         public DbSet<User> User { get; set; }
