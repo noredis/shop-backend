@@ -1,20 +1,20 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 using shop_backend.Dtos.User;
 using shop_backend.Models;
+using shop_backend.Validation;
 
 namespace shop_backend.Interfaces.Service
 {
     public interface IUserService
     {
-        public bool SearchForEmail(string email);
         public bool ValidatePassword(string password);
-        public void HashPassword(string password, string confirmation, out string encPaswword, out string encConfirmation);
+        public void HashRegisterPassword(string password, string confirmation, out string encPaswword, out string encConfirmation);
         public bool ConfirmPassword(string encPassword, string encConfirmation);
-        public Results<Created<UserResponce>, BadRequest<string>> Create(User userModel, string passwordConfirm, IUrlHelper urlHelper);
-        public Results<Ok<LogInResponceDto>, UnauthorizedHttpResult> Authorize(LogInUserDto logInUserDto);
-        public List<User> Find();
-        public User? FindById(int id);
+        public void GenerateToken(User user, out string accessToken, out string refreshToken);
+        public Result<UserResponce> RegisterUser(User userModel, string passwordConfirm, IUrlHelper urlHelper);
+        public Result<LogInResponceDto> AuthorizeUser(LogInUserDto logInUserDto);
+        public Result<List<User>> GetUsers();
+        public Result<User?> FindUserById(int id);
     }
 }

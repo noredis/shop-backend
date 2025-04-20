@@ -4,7 +4,7 @@ namespace shop_backend.Interfaces.Repository
 {
     public interface ITokenRepository
     {
-        public void InsertRefreshToken(RefreshToken refreshToken);
+        public void AddRefreshToken(RefreshToken refreshToken);
         public RefreshToken? FindRefreshToken(string refreshToken);
     }
 }

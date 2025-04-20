@@ -3,6 +3,7 @@
 using shop_backend.Dtos.RefreshToken;
 using shop_backend.Dtos.User;
 using shop_backend.Interfaces.Service;
+using shop_backend.Validation;
 
 namespace shop_backend.Controllers
 {
@@ -28,9 +29,16 @@ namespace shop_backend.Controllers
                 return TypedResults.BadRequest(ModelState);
             }
 
-            IResult status = _userService.Authorize(logInUserDto);
-
-            return status;
+            Result<LogInResponceDto> requestResult = _userService.AuthorizeUser(logInUserDto);
+            
+            if (requestResult.IsSuccess)
+            {
+                return TypedResults.Ok(requestResult.Value);
+            }
+            else
+            {
+                return TypedResults.Unauthorized();
+            }
         }
 
         [HttpPost]
@@ -42,9 +50,16 @@ namespace shop_backend.Controllers
                 return TypedResults.BadRequest(ModelState);
             }
 
-            IResult status = _tokenService.RefreshAccessToken(refreshTokenDto.RefreshToken);
+            Result<LogInResponceDto> requestResult = _tokenService.RefreshAccessToken(refreshTokenDto.RefreshToken);
 
-            return status;
+            if (requestResult.IsSuccess)
+            {
+                return TypedResults.Ok(requestResult.Value);
+            }
+            else
+            {
+                return TypedResults.Unauthorized();
+            }
         }
     }
 }

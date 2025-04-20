@@ -12,6 +12,8 @@ namespace shop_backend.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.Sql("CREATE DATABASE IF NOT EXISTS shop;");
+
             migrationBuilder.CreateTable(
                 name: "User",
                 columns: table => new
@@ -36,6 +38,7 @@ namespace shop_backend.Migrations
         {
             migrationBuilder.DropTable(
                 name: "User");
+            migrationBuilder.Sql("DROP DATABASE IF EXISTS shop;");
         }
     }
 }

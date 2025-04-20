@@ -2,13 +2,14 @@
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using Microsoft.AspNetCore.Http.HttpResults;
+
 using Microsoft.IdentityModel.Tokens;
 
 using shop_backend.Dtos.User;
 using shop_backend.Interfaces.Repository;
 using shop_backend.Interfaces.Service;
 using shop_backend.Models;
+using shop_backend.Validation;
 
 
 namespace shop_backend.Services
@@ -17,6 +18,7 @@ namespace shop_backend.Services
     {
         private readonly IConfiguration _config;
         private readonly SymmetricSecurityKey _key;
+
         private readonly ITokenRepository _tokenRepo;
 
         public TokenService(IConfiguration config, ITokenRepository tokenRepo)
@@ -27,7 +29,7 @@ namespace shop_backend.Services
             _tokenRepo = tokenRepo;
         }
 
-        public void CreateToken(User user, out string accessToken, out string refreshToken)
+        private void RegenerateTokens(User user, out string accessToken, out string refreshToken)
         {
             var claims = new List<Claim>
             {
@@ -56,18 +58,18 @@ namespace shop_backend.Services
                 Token = GenerateRefreshToken()
             };
 
-            _tokenRepo.InsertRefreshToken(_refreshToken);
+            _tokenRepo.AddRefreshToken(_refreshToken);
 
             accessToken = tokenHandler.WriteToken(token);
             refreshToken = _refreshToken.Token;
         }
 
-        private string GenerateRefreshToken()
+        public string GenerateRefreshToken()
         {
             return Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
         }
 
-        public Results<Ok<LogInResponceDto>, UnauthorizedHttpResult> RefreshAccessToken(string refreshToken)
+        public Result<LogInResponceDto> RefreshAccessToken(string refreshToken)
         {
             RefreshToken? token = _tokenRepo.FindRefreshToken(refreshToken);
 
@@ -76,8 +78,8 @@ namespace shop_backend.Services
 
             if (token != null)
             {
-                CreateToken(token.User, out newAccessToken, out newRefreshToken);
-                return TypedResults.Ok(
+                RegenerateTokens(token.User, out newAccessToken, out newRefreshToken);
+                return Result<LogInResponceDto>.Success(
                     new LogInResponceDto
                     {
                         AccessToken = newAccessToken,
@@ -87,7 +89,7 @@ namespace shop_backend.Services
             }
             else
             {
-                return TypedResults.Unauthorized();
+                return Result<LogInResponceDto>.Failure(new Error("Login or password are incorrect"));
             }
         }
     }

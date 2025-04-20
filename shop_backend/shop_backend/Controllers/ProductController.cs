@@ -6,6 +6,7 @@ using shop_backend.Dtos.Product;
 using shop_backend.Interfaces.Service;
 using shop_backend.Mappers;
 using shop_backend.Models;
+using shop_backend.Validation;
 
 namespace shop_backend.Controllers
 {
@@ -31,9 +32,16 @@ namespace shop_backend.Controllers
             }
 
             Product productModel = productDto.ToProduct();
-            IResult status = _productService.Add(productModel, Url);
-
-            return status;
+            Result<string> responceResult = _productService.AddProduct(productModel, Url);
+            
+            if (responceResult.IsSuccess)
+            {
+                return TypedResults.Created(responceResult.Value);
+            }
+            else
+            {
+                return TypedResults.BadRequest(responceResult.Error);
+            }
         }
 
         [Authorize]
@@ -41,8 +49,16 @@ namespace shop_backend.Controllers
         [Route("products")]
         public IResult GetProducts()
         {
-            IResult status = _productService.FindProducts();
-            return status;
+            Result<List<Product>?> responceResult = _productService.GetProducts();
+            
+            if (responceResult.IsSuccess)
+            {
+                return TypedResults.Ok(responceResult.Value);
+            }
+            else
+            {
+                return TypedResults.NotFound(responceResult.Error);
+            }
         }
 
         [Authorize]
@@ -50,22 +66,42 @@ namespace shop_backend.Controllers
         [Route("products/{productId}")]
         public IResult GetProduct([FromRoute] int productId)
         {
-            IResult status = _productService.FindProduct(productId);
-            return status;
+            Result<Product?> requestResult = _productService.GetProductById(productId);
+            
+            if (requestResult.IsSuccess)
+            {
+                return TypedResults.Ok(requestResult.Value);
+            }
+            else
+            {
+                return TypedResults.NotFound(requestResult.Error);
+            }
+
         }
 
         [Authorize]
         [HttpPut]
         [Route("products/{productId}")]
-        public IResult UpdateProduct([FromRoute] int productId, [FromBody] UpdateProductDto productDto)
+        public IResult PutProduct([FromRoute] int productId, [FromBody] PutProductDto productDto)
         {
             if (!ModelState.IsValid)
             {
                 return TypedResults.BadRequest();
             }
 
-            IResult status = _productService.EditProduct(productId, productDto);
-            return status;
+            Result<string> requestResult = _productService.PutProduct(productId, productDto);
+            
+            if (requestResult.IsSuccess)
+            {
+                return TypedResults.NoContent();
+            }
+            else
+            {
+                return TypedResults.Problem(
+                    statusCode: requestResult.Error.StatusCode,
+                    detail: requestResult.Error.Message
+                );
+            }
         }
 
         [Authorize]
@@ -73,8 +109,19 @@ namespace shop_backend.Controllers
         [Route("products/{productId}")]
         public IResult PatchProduct([FromRoute] int productId, [FromBody] JsonPatchDocument productDocument)
         {
-            IResult status = _productService.EditProduct(productId, productDocument);
-            return status;
+            Result<string> requestResult = _productService.PatchProduct(productId, productDocument);
+            
+            if (requestResult.IsSuccess)
+            {
+                return TypedResults.NoContent();
+            }
+            else
+            {
+                return TypedResults.Problem(
+                    statusCode: requestResult.Error.StatusCode,
+                    detail: requestResult.Error.Message
+                );
+            }
         }
 
         [Authorize]
@@ -82,8 +129,16 @@ namespace shop_backend.Controllers
         [Route("products/{productId}")]
         public IResult DeleteProduct([FromRoute] int productId)
         {
-            IResult status = _productService.RemoveProduct(productId);
-            return status;
+            Result<string> requestResult = _productService.DeleteProduct(productId);
+            
+            if (requestResult.IsSuccess)
+            {
+                return TypedResults.NoContent();
+            }
+            else
+            {
+                return TypedResults.NotFound(requestResult.Error);
+            }
         }
     }
 }

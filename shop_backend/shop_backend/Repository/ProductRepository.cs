@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.JsonPatch;
+
 using shop_backend.Data;
 using shop_backend.Dtos.Product;
 using shop_backend.Interfaces.Repository;
@@ -15,23 +16,23 @@ namespace shop_backend.Repository
             _context = context;
         }
 
-        public void InsertProduct(Product product)
+        public void AddProduct(Product product)
         {
             _context.Products.Add(product);
             _context.SaveChanges();
         }
 
-        public Product? SelectProduct(int productId)
+        public Product? GetProduct(int productId)
         {
             return _context.Products.Find(productId);
         }
 
-        public List<Product>? SelectProducts()
+        public List<Product>? GetProducts()
         {
             return _context.Products.ToList();
         }
 
-        public void UpdateProduct(Product product, UpdateProductDto productDto)
+        public void UpdateProduct(Product product, PutProductDto productDto)
         {
             product.Name = productDto.Name;
             product.Category = productDto.Category;
@@ -42,7 +43,7 @@ namespace shop_backend.Repository
             _context.SaveChanges();
         }
 
-        public void UpdateProduct(Product product, JsonPatchDocument productDocument)
+        public void UpdateProductPartially(Product product, JsonPatchDocument productDocument)
         {
             productDocument.ApplyTo(product);
 

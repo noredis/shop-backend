@@ -8,7 +8,7 @@ services:
       - "5000:5000"
       - "5001:5001"
     volumes:
-      - C:\VSProjects\Downloads\Shop-Backend:/home/downloads/shop-backend
+      - ./.containers/Shop-Backend:/home/downloads/shop-backend
 
   shop.database:
     image: postgres:17

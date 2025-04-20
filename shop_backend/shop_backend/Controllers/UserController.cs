@@ -5,6 +5,7 @@ using shop_backend.Models;
 using shop_backend.Dtos.User;
 using shop_backend.Mappers;
 using shop_backend.Interfaces.Service;
+using shop_backend.Validation;
 
 namespace shop_backend.Controllers
 {
@@ -22,19 +23,35 @@ namespace shop_backend.Controllers
         [Authorize]
         [HttpGet]
         [Route("users")]
-        public IActionResult GetUsers()
+        public IResult GetUsers()
         {
-            List<User> users = _userService.Find();
-            return Ok(users);
+            Result<List<User>> requestResult = _userService.GetUsers();
+
+            if (requestResult.IsSuccess)
+            {
+                return TypedResults.Ok(requestResult.Value);
+            }
+            else
+            {
+                return TypedResults.NotFound(requestResult.Error);
+            }
         }
 
         [Authorize]
         [HttpGet]
         [Route("user/{id}")]
-        public IActionResult GetUserById([FromRoute] int id)
+        public IResult GetUserById([FromRoute] int id)
         {
-            var user = _userService.FindById(id);
-            return Ok(user);
+            Result<User?> requestResult = _userService.FindUserById(id);
+
+            if (requestResult.IsSuccess)
+            {
+                return TypedResults.Ok(requestResult.Value);
+            }
+            else
+            {
+                return TypedResults.NotFound(requestResult.Error);
+            }
         }
 
         [HttpPost]
@@ -49,9 +66,16 @@ namespace shop_backend.Controllers
             User userModel = userDto.RegisterDtoToUser();
             string passwordConfirm = userDto.PasswordConfirm;
 
-            IResult status = _userService.Create(userModel, passwordConfirm, Url);
+            Result<UserResponce> requestResult = _userService.RegisterUser(userModel, passwordConfirm, Url);
 
-            return status;
+            if (requestResult.IsSuccess)
+            {
+                return TypedResults.Created(requestResult.Location, requestResult.Value);
+            }
+            else
+            {
+                return TypedResults.BadRequest(requestResult.Error);
+            }
         }
     }
 }
