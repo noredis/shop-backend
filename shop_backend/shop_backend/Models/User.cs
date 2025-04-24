@@ -1,9 +1,11 @@
-﻿namespace shop_backend.Models
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace shop_backend.Models
 {
-    public class User
+    public class User : IdentityUser<int>
     {
-        public int Id { get; set; }
-        public string Email { get; set; } = String.Empty;
+        public override int Id { get; set; }
+        public override string Email { get; set; } = String.Empty;
         public string FullName { get; set; } = String.Empty;
         public string Password { get; set; } = String.Empty;
         public DateOnly CreatedAt { get; set; }
