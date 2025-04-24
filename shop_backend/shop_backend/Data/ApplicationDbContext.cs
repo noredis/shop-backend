@@ -22,6 +22,7 @@ namespace shop_backend.Data
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
             modelBuilder.ApplyConfiguration(new RoleConfiguration());
+            modelBuilder.ApplyConfiguration(new UserRoleConfiguration());
         }
     }
 }
