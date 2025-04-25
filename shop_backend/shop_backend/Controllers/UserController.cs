@@ -64,9 +64,11 @@ namespace shop_backend.Controllers
             }
 
             User userModel = userDto.RegisterDtoToUser();
+
+            string role = userDto.Role;
             string passwordConfirm = userDto.PasswordConfirm;
 
-            Result<UserResponce> requestResult = _userService.RegisterUser(userModel, passwordConfirm, Url);
+            Result<UserResponce> requestResult = _userService.RegisterUser(userModel, passwordConfirm, Url, role).Result;
 
             if (requestResult.IsSuccess)
             {

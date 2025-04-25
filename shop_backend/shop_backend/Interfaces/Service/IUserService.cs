@@ -12,7 +12,7 @@ namespace shop_backend.Interfaces.Service
         public void HashRegisterPassword(string password, string confirmation, out string encPaswword, out string encConfirmation);
         public bool ConfirmPassword(string encPassword, string encConfirmation);
         public void GenerateToken(User user, out string accessToken, out string refreshToken);
-        public Result<UserResponce> RegisterUser(User userModel, string passwordConfirm, IUrlHelper urlHelper);
+        public Task<Result<UserResponce>> RegisterUser(User userModel, string passwordConfirm, IUrlHelper urlHelper, string role);
         public Result<LogInResponceDto> AuthorizeUser(LogInUserDto logInUserDto);
         public Result<List<User>> GetUsers();
         public Result<User?> FindUserById(int id);

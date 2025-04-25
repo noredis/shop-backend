@@ -14,5 +14,7 @@ namespace shop_backend.Dtos.User
         public string Password { get; set; } = String.Empty;
         [Required]
         public string PasswordConfirm { get; set; } = String.Empty;
+        [Required]
+        public string Role { get; set; } = String.Empty;
     }
 }
