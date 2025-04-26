@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+// using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 
 using shop_backend.Dtos.User;
@@ -14,7 +15,6 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace shop_backend.Services
 {
@@ -122,13 +122,18 @@ namespace shop_backend.Services
             return isValid;
         }
 
-        public void GenerateToken(User user, out string accessToken, out string refreshToken)
+        public void GenerateToken(User user, IList<string> roles, out string accessToken, out string refreshToken)
         {
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim(JwtRegisteredClaimNames.Name, user.FullName)
+                new Claim(JwtRegisteredClaimNames.Name, user.FullName),
             };
+
+            foreach (var role in roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
 
             var credentials = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
 
@@ -200,7 +205,7 @@ namespace shop_backend.Services
                 return Result<UserResponce>.Success(UserMappers.FromUser(userModel), locationHeader);
             }
         }
-        public Result<LogInResponceDto> AuthorizeUser(LogInUserDto logInUserDto)
+        public async Task<Result<LogInResponceDto>> AuthorizeUser(LogInUserDto logInUserDto)
         {
             string encPassword = string.Empty;
             string accessToken = string.Empty;
@@ -219,7 +224,9 @@ namespace shop_backend.Services
             }
             else
             {
-                GenerateToken(currentUser, out accessToken, out refreshToken);
+                var roles = await _userManager.GetRolesAsync(currentUser);
+
+                GenerateToken(currentUser, roles, out accessToken, out refreshToken);
                 return Result<LogInResponceDto>.Success(
                     new LogInResponceDto
                     {

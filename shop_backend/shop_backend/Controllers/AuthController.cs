@@ -29,7 +29,7 @@ namespace shop_backend.Controllers
                 return TypedResults.BadRequest(ModelState);
             }
 
-            Result<LogInResponceDto> requestResult = _userService.AuthorizeUser(logInUserDto);
+            Result<LogInResponceDto> requestResult = _userService.AuthorizeUser(logInUserDto).Result;
             
             if (requestResult.IsSuccess)
             {

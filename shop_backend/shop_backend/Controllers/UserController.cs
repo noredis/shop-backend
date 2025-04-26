@@ -20,7 +20,7 @@ namespace shop_backend.Controllers
             _userService = userService;
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         [Route("users")]
         public IResult GetUsers()
@@ -37,7 +37,7 @@ namespace shop_backend.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         [Route("user/{id}")]
         public IResult GetUserById([FromRoute] int id)

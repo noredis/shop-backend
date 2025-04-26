@@ -4,7 +4,6 @@ namespace shop_backend.Validation
 {
     public class Error
     {
-        public IEnumerable<IdentityError> Errors { get; set; }
         public string Message { get; }
         public int StatusCode { get; }
 
@@ -12,13 +11,6 @@ namespace shop_backend.Validation
         {
             Message = message;
             StatusCode = statusCode;
-        }
-
-        public Error (IEnumerable<IdentityError> errors)
-        {
-            Errors = errors;
-            Message = String.Empty;
-            StatusCode = default;
         }
     }
 }

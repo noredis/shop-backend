@@ -3,14 +3,6 @@
   "WorkspaceRootPath": "C:\\VSProjects\\shop-backend\\shop_backend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend\\shop_backend.csproj|c:\\vsprojects\\shop-backend\\shop_backend\\shop_backend\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend\\shop_backend.csproj|solutionrelative:shop_backend\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend\\shop_backend.csproj|c:\\vsprojects\\shop-backend\\shop_backend\\shop_backend\\validation\\error.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend\\shop_backend.csproj|solutionrelative:shop_backend\\validation\\error.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend\\shop_backend.csproj|c:\\vsprojects\\shop-backend\\shop_backend\\shop_backend\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B7832DE2-912E-42A4-A2E5-BB28D680D868}|shop_backend\\shop_backend.csproj|solutionrelative:shop_backend\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -27,40 +19,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "UserController.cs",
-              "DocumentMoniker": "C:\\VSProjects\\shop-backend\\shop_backend\\shop_backend\\Controllers\\UserController.cs",
-              "RelativeDocumentMoniker": "shop_backend\\Controllers\\UserController.cs",
-              "ToolTip": "C:\\VSProjects\\shop-backend\\shop_backend\\shop_backend\\Controllers\\UserController.cs",
-              "RelativeToolTip": "shop_backend\\Controllers\\UserController.cs",
-              "ViewState": "AgIAACwAAAAAAAAAAAAwwEoAAABZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-25T16:25:17.561Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Error.cs",
-              "DocumentMoniker": "C:\\VSProjects\\shop-backend\\shop_backend\\shop_backend\\Validation\\Error.cs",
-              "RelativeDocumentMoniker": "shop_backend\\Validation\\Error.cs",
-              "ToolTip": "C:\\VSProjects\\shop-backend\\shop_backend\\shop_backend\\Validation\\Error.cs",
-              "RelativeToolTip": "shop_backend\\Validation\\Error.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABIAAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-25T16:21:11.58Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
               "Title": "UserService.cs",
               "DocumentMoniker": "C:\\VSProjects\\shop-backend\\shop_backend\\shop_backend\\Services\\UserService.cs",
               "RelativeDocumentMoniker": "shop_backend\\Services\\UserService.cs",
               "ToolTip": "C:\\VSProjects\\shop-backend\\shop_backend\\shop_backend\\Services\\UserService.cs",
               "RelativeToolTip": "shop_backend\\Services\\UserService.cs",
-              "ViewState": "AgIAAKwAAAAAAAAAAAAuwMAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAF0AAAAAAAAAAAA0wAoBAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-25T15:20:39.87Z",
+              "WhenOpened": "2025-04-26T10:00:50.174Z",
               "EditorCaption": ""
             }
           ]
