@@ -1,4 +1,6 @@
-﻿namespace shop_backend.Validation
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace shop_backend.Validation
 {
     public class Error
     {

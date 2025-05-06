@@ -10,6 +10,8 @@ using shop_backend.Repository;
 using shop_backend.Services;
 
 using System.Text;
+using shop_backend.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace shop_backend
 {
@@ -25,6 +27,10 @@ namespace shop_backend
             {
                 options.UseNpgsql(builder.Configuration.GetConnectionString("DbConnString"));
             });
+
+            builder.Services.AddIdentity<User, Role>()
+                    .AddEntityFrameworkStores<ApplicationDbContext>()
+                    .AddDefaultTokenProviders();
 
             builder.Services.AddControllers().AddNewtonsoftJson();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

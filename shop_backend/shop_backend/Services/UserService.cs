@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+// using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 
 using shop_backend.Dtos.User;
@@ -26,7 +28,9 @@ namespace shop_backend.Services
         private readonly IConfiguration _config;
         private readonly SymmetricSecurityKey _key;
 
-        public UserService(IUserRepository userRepo, ITokenService tokenService, ITokenRepository tokenRepo, IConfiguration config)
+        private readonly UserManager<User> _userManager;
+
+        public UserService(IUserRepository userRepo, ITokenService tokenService, ITokenRepository tokenRepo, IConfiguration config, UserManager<User> userManager)
         {
             _config = config;
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWT:SigningKey"]));
@@ -34,6 +38,7 @@ namespace shop_backend.Services
             _userRepo = userRepo;
             _tokenService = tokenService;
             _tokenRepo = tokenRepo;
+            _userManager = userManager;
         }
 
         public bool ConfirmPassword(string encPassword, string encConfirmation)
@@ -117,13 +122,18 @@ namespace shop_backend.Services
             return isValid;
         }
 
-        public void GenerateToken(User user, out string accessToken, out string refreshToken)
+        public void GenerateToken(User user, IList<string> roles, out string accessToken, out string refreshToken)
         {
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim(JwtRegisteredClaimNames.Name, user.FullName)
+                new Claim(JwtRegisteredClaimNames.Name, user.FullName),
             };
+
+            foreach (var role in roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
 
             var credentials = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
 
@@ -152,7 +162,7 @@ namespace shop_backend.Services
             refreshToken = _refreshToken.Token;
         }
 
-        public Result<UserResponce> RegisterUser(User userModel, string passwordConfirm, IUrlHelper urlHelper)
+        public async Task<Result<UserResponce>> RegisterUser(User userModel, string passwordConfirm, IUrlHelper urlHelper, string role)
         {
             string encPassword = "";
             string encConfirmation = "";
@@ -183,14 +193,19 @@ namespace shop_backend.Services
             else
             {
                 userModel.Password = encPassword;
+                userModel.SecurityStamp = Guid.NewGuid().ToString();
+                userModel.UserName = userModel.Email;
+
                 _userRepo.AddUser(userModel);
+
+                await _userManager.AddToRoleAsync(userModel, role);
 
                 string? locationHeader = urlHelper.Action("GetUserById", "User", new { id = userModel.Id });
 
                 return Result<UserResponce>.Success(UserMappers.FromUser(userModel), locationHeader);
             }
         }
-        public Result<LogInResponceDto> AuthorizeUser(LogInUserDto logInUserDto)
+        public async Task<Result<LogInResponceDto>> AuthorizeUser(LogInUserDto logInUserDto)
         {
             string encPassword = string.Empty;
             string accessToken = string.Empty;
@@ -209,7 +224,9 @@ namespace shop_backend.Services
             }
             else
             {
-                GenerateToken(currentUser, out accessToken, out refreshToken);
+                var roles = await _userManager.GetRolesAsync(currentUser);
+
+                GenerateToken(currentUser, roles, out accessToken, out refreshToken);
                 return Result<LogInResponceDto>.Success(
                     new LogInResponceDto
                     {

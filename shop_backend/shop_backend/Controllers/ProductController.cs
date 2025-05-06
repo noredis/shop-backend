@@ -21,7 +21,7 @@ namespace shop_backend.Controllers
             _productService = productService;
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin, Seller")]
         [HttpPost]
         [Route("product")]
         public IResult AddProduct([FromBody] AddProductDto productDto)
@@ -44,7 +44,7 @@ namespace shop_backend.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin, Seller, Customer")]
         [HttpGet]
         [Route("products")]
         public IResult GetProducts()
@@ -61,7 +61,7 @@ namespace shop_backend.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin, Seller, Customer")]
         [HttpGet]
         [Route("products/{productId}")]
         public IResult GetProduct([FromRoute] int productId)
@@ -79,7 +79,7 @@ namespace shop_backend.Controllers
 
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin, Seller")]
         [HttpPut]
         [Route("products/{productId}")]
         public IResult PutProduct([FromRoute] int productId, [FromBody] PutProductDto productDto)
@@ -104,7 +104,7 @@ namespace shop_backend.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin, Seller")]
         [HttpPatch]
         [Route("products/{productId}")]
         public IResult PatchProduct([FromRoute] int productId, [FromBody] JsonPatchDocument productDocument)
@@ -124,7 +124,7 @@ namespace shop_backend.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin, Seller")]
         [HttpDelete]
         [Route("products/{productId}")]
         public IResult DeleteProduct([FromRoute] int productId)
